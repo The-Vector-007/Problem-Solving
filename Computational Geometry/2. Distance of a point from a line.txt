@@ -1,0 +1,40 @@
+-Distance of a point from an infinite line :-
+
+    Let L be an infinite line on which there be two points  A and B. Let C be another point which is not on the line. We need to find the distance of this point C
+    from the line. The distance will be the perpendicular distance from the line,
+
+                                                        Distance(C,L) = |AB x AC| / |AB|
+
+    Here,
+         AB = (x1,y1) then |AB| = sqrt( x1^2 + y1^2 )
+
+
+-Distance of a point from a Line segment :-
+
+    A line segment is a part of a line that is bounded by two distinct end points.
+
+    In this case we need to find where does the point C Lies.
+
+               C                                               C                                                           C
+               *                                               *                                                           *
+
+                                        
+
+                            *--------------------------------------------------------------------------------*
+                            A                                                                                B
+
+    There can be three possible cases :-
+    (1) C point lies outside the line segment and is close to point A, here we will find distance AC.
+    (2) C point lies outside the line segment and is close to point B, here we will find distance BC.
+    (3) C point lies in the range of line segment, in this case we can simply find the perpendicular distance.
+
+
+    We can figure out which distance to find using dot product.
+
+    Case 1: AB . AC = negative (angle will be obtuse) , point is close to A find AC using distance formula i.e. sqrt( (x2-x1)^2 + (y2-y1)^2 )
+
+    Case 2: AB . BC = positive (angle will be acute how? extend AB and check angle b/w AB and BC) , point is close to B find BC.
+
+    Case 3: AB . AC = 0 , find perpendicular distance i.e. |AB x AC| / |AB|
+
+        

@@ -1,0 +1,34 @@
+We want to implement our own unordered_map. In terms of read and write arrays are very fast (takes O(1) time).
+
+For our hash table we need to find a way to store the keys, for each key we can store them at a unique index in our array. 
+
+For that we have to using something called the hash function.
+
+                KEY ---  HASH FUNCTION --- Unique Index (within array size)
+
+A hash function has two parts :-
+
+(1) Hash code - A unique number to the given key (can be of any size).
+(2) Compression function - Converts the hash code into a unique index which comes under the array size.
+
+e.g :-
+
+(a)
+for keys of type string, we can use something called polynomial hashing.
+
+"abc" -- 'a' * p^2 + 'b' * p^1 + 'c' * p^0.
+
+Here p = any prime number. [ prime numbers are good for creating unique distributions ].
+
+(b)
+for keys which are integers , we can use them directly , like an identity function.
+
+(c)
+for objects like 'student' we can use their address to get a unique number to hash them.
+
+NOTE : During compression , sometimes two different keys may get same index this is called collision. We must define our function in
+such a way that collisions are very less.
+
+e.g 'abc' -- 105   'bcd' -- 205
+
+105 % 20 = 5  and  205 % 20 = 5.

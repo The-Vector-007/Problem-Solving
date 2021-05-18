@@ -1,0 +1,17 @@
+Steps :-
+
+(1) Take input -- n = vertices  E = edges 
+
+(2) Sort the edges based on weight -- O( E logE )
+
+(3) Pick n-1 edges and put in MST ( In worst case we have to visit all Edges )
+        |
+        --> Perform Cycle Detection ( In worst case we have to visit all vertices(skewed tree) )
+
+So,     O( E * V )
+
+Overall Time Complexity -- O( E logE + E * V ) // In worst case E can be V^2.
+
+Instead of using union find algorithm which takes O(V) we can use something called Union by Rank and Path Compression which takes 
+O(logV) time.
+

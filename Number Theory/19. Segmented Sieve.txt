@@ -1,0 +1,68 @@
+Algorithm :-
+
+(1) Find all the primes from 2 to sqrt(r)
+(2) Mark all multiples of these primes as false in the range l to r.
+    - For finding the closest multiple of a prime to l use the formula - l/p * p
+
+
+Code :-
+//If r exceeds 10^10 change the value of MAX accordingly
+
+#define MAX 100001  // l - r <= 10^6 or r <= 10^10 then sqrt(r) = 10^5
+
+vector<int> primes;
+
+void sieve(){
+    vector<bool> isPrime(MAX, true);
+    isPrime[0] = false; 
+    isPrime[1] = false;
+
+    for( int i = 2; i * i < MAX; i++ ){
+        if( isPrime[i] ){
+            for( int j = i * i; j < MAX; j += i ){
+                isPrime[j] = false;
+            }
+        }
+    }
+
+    primes.push_back(2);
+    for( int i = 3; i < MAX; i += 2 ){
+        if( isPrime[i] ){
+            primes.push_back(i);
+        }
+    }
+}
+
+
+// instead of having array from l to r we have 0 to r-l
+// if idx = l then idx-l = 0, idx = l+1, idx-l = 1 in this way for every index in l to r
+// we can have its corresponding value in 0 to r-l by subtracting l from that index. 
+
+void segmentedSieve(long long l, long long r){
+    vector<bool> isPrime(r-l+1, true);
+
+    for( int i = 0; primes[i]*(long long)primes[i] <= r; i++ ){
+        int currPrime = primes[i];
+        // finding multiple of currPrime less than or equal to l
+        long long base = (l/currPrime) * currPrime;
+        //if multiple of currPrime is less than l move to next multiple of currPrime
+        if( base < l ){
+            base += currPrime;
+        }
+        //Mark all multiples of currPrime in [L,R] as false
+        for( int j = base; j <= r; j += currPrime ){
+            isPrime[j-l] = false;
+        }
+        //if base becomes equal to currPrime then mark it true as it is prime
+        if( base == currPrime ){
+            isPrime[base-l] = true;
+        }
+    }
+
+    //if i is prime then i+l is the actual value which is b/w l to r that is prime.
+    for( int i = 0; i <= r-l; i++ ){
+        if( isPrime[i] ){
+            cout << i + l << endl;
+        }
+    }
+}

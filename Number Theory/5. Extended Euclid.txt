@@ -1,0 +1,65 @@
+There is a relation between a , b and gcd(a,b) :-
+
+                                a*x + b*y = gcd(a,b) -- (1)
+                        Also,
+                                gcd(a,b) = gcd(b, a%b) { Euclid Algo }
+
+                                b*x1 + (a%b)*y1 = gcd(b, a%b) = gcd(a,b) = a*x + b*y  { from (1) }
+
+                        Now,
+                                b*x1 + (a%b)*y1 = a*x + b*y1
+
+                                we also know that, a % b = a - b*[a/b]
+                        So,
+                                b*x1 + ( a - b*[a/b] )*y1 = a*x + b*y
+
+                                b*( x1 - [a/b]*y1 ) + a*y1 = a*x + b*y
+
+                                Comparing coefficients,
+
+                                x = y1
+
+                                y = x1 - [a/b]*y1
+
+So, if we know the values of x1 and y1 we can find the values of x and y.
+
+Code :-
+
+class Triplet{
+    public :
+        int gcd;
+        int x;
+        int y;
+};
+
+Triplet gcdExtendedEuclid(int a, int b){
+    if( b == 0 ){
+        Triplet myAns;
+        myAns.gcd = a;
+        myAns.x = 1;
+        myAns.y = 0;
+        return myAns;
+    }
+
+    Triplet smallAns = gcdExtendedEuclid(b, a%b);
+
+    Triplet myAns;
+    myAns.gcd = smallAns.gcd;
+    myAns.x = smallAns.y;
+    myAns.y = smallAns.x - ((a/b)*smallAns.y);
+
+    return myAns;
+}
+
+Explaination of base case :-
+
+when b = 0, gcd(a,b) = gcd(a,0) = a
+So,
+    a.x + b.y = gcd(a,b)
+    substituting values,
+    a.x + 0 = gcd(a,0) = a
+    a.x = a
+    x = 1
+    y = 0
+
+Application : Used in finding Multiplicative Modulo Inverse of a number.

@@ -1,0 +1,33 @@
+void DFS_to_check_connected(int** adjMatrix, int n, int sv, bool* visited){
+    visited[sv] = true;
+    for( int i = 0; i < n; i++ ){
+        if( i == sv ){
+            continue;
+        }
+        if( adjMatrix[sv][i] == 1 && !visited[i] ){
+            DFS_to_check_connected(adjMatrix,n,i,visited);
+        }
+    }
+}
+
+bool isConnected( int** adjMatrix, int n ){
+    bool* visited = new bool[n];
+    for( int i = 0; i < n; i++ ){
+        visited[i] = false;
+    }
+
+    int sv = 0; // you can take any one from 0 -- n-1
+
+    DFS_to_check_connected(adjMatrix,n,sv,visited);
+
+    bool ans = true;
+
+    for( int i = 0; i < n; i++ ){
+        if( !visited[i] ){
+            ans = false;
+            break;
+        }
+    }
+
+    return ans;
+}

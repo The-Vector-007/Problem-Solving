@@ -1,0 +1,14 @@
+Tree - A graph which is "Connected" and has "No Cycles".
+
+Spanning Tree - A Tree which has all the vertices of an 'Undirected and Connected Graph' and n - 1 edges (n being no of vertices).
+
+Note - For a given graph there can be multiple Spanning Trees.
+
+            Graph           Spanning Tree
+
+Vertices      n                  n 
+Edges         e                n - 1
+
+Minimum Spanning Tree ( MST ) :-
+
+A Tree that has all the vertices of an -- Undirected -- Connected -- Weighted Graph with minimum possible overall weight.

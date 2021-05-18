@@ -1,0 +1,9 @@
+A Balanced binary search tree is the one in which for each node,
+
+			| height of left subtree - height of right subtree |  <=  1.
+
+Types of Balanced BST are :-
+
+(1) AVL Trees
+(2) Red Black Tree
+(3) 2-4 Tree 

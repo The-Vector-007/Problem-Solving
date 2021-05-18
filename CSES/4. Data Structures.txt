@@ -1,0 +1,126 @@
+Other Structures :-
+
+(1) bitset : an array whose value is either 1 or 0.
+It takes less space as compared to a normal int array.
+
+syntax:-
+bitset< size > name;
+e.g: bitset<10> s; // an array of size 10 all initialized to 0.
+
+another way of initialization,
+
+bitset<10> s ( string("0010011010") ); //passing a binary string.
+The array will be created from right to left.
+e.g: s[4] is 1 & s[5] is 0.
+
+cout<< s.count(); // returns no. of set bit or 1. i.e 4(in above
+example)
+
+In addition, the values of a bitset can be efficiently 
+manipulated using bit operators, which makes it possible to 
+optimize algorithms using bit sets.
+
+bitset<10> a(string("0010110110"));
+bitset<10> b(string("1011011000"));
+cout << (a&b) << "\n"; // 0010010000
+cout << (a|b) << "\n"; // 1011111110
+cout << (a^b) << "\n"; // 1001101110
+
+(2) Deque :-
+
+Same as vector but it provides adding and removing of elements
+from front too.
+
+push_front() & pop_front()
+
+deque<int> d;
+d.push_back(5); // [5]
+d.push_back(2); // [5,2]
+d.push_front(3); // [3,5,2]
+d.pop_back(); // [3,5]
+d.pop_front(); // [5]
+
+The internal implementation of a deque is more complex than that 
+of a vector, and for this reason, a deque is slower than a vector.
+Still, both adding and removing elements take O(1) time on 
+average at both ends.
+
+(3) Stack :-
+
+A stack is a data structure that provides two O(1) time operations
+: adding an element to the top, and removing an element from the 
+top. It is only possible to access the top element of a stack.
+
+stack<int> s;
+s.push(3);
+s.push(2);
+s.push(5);
+cout << s.top(); // 5
+s.pop();
+cout << s.top(); // 2
+
+(4) Queue :-
+
+A queue also provides two O(1) time operations: adding an element
+to the end of the queue, and removing the first element in the 
+queue. It is only possible to access the first and last element 
+of a queue.
+
+push() pop() front() back()
+
+queue<int> q;
+q.push(3);
+q.push(2);
+q.push(5);
+cout << q.front(); // 3
+q.pop();
+cout << q.front(); // 2
+
+(5) Priority Queue :-
+
+priority_queue<int> q;
+q.push(3);
+q.push(5);
+q.push(7);
+q.push(2);
+cout << q.top() << "\n"; // 7
+q.pop();
+cout << q.top() << "\n"; // 5
+q.pop();
+q.push(6);
+cout << q.top() << "\n"; // 6
+q.pop();
+
+If we want to create a priority queue that supports finding and 
+removing the smallest element, we can do it as follows:
+
+priority_queue<int,vector<int>,greater<int>> q;
+
+NOTE :-
+default --> top() --> largest element
+by changing --> top() --> smallest element
+
+(6) policy based data structures //refer to the book
+
+These are not a part of the stl but are supported by g++ compiler.
+
+header and namespace ,
+#include <ext/pb_ds/assoc_container.hpp>
+using namespace __gnu_pbds;
+
+typedef tree<int,null_type,less<int>,rb_tree_tag,
+tree_order_statistics_node_update> indexed_set;
+
+indexed_set s;
+s.insert(2);
+s.insert(3);
+s.insert(7);
+s.insert(9);
+
+auto x = s.find_by_order(2);
+cout << *x << "\n"; // 7
+
+cout << s.order_of_key(7) << "\n"; // 2
+
+cout << s.order_of_key(6) << "\n"; // 2
+cout << s.order_of_key(8) << "\n"; // 3

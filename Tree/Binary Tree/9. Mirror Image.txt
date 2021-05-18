@@ -1,0 +1,23 @@
+void mirror( BinaryTreeNode<int>* root ){
+    if( root == NULL ){
+        return;
+    }
+
+    queue<BinaryTreeNode<int>*> pendingNodes;
+    pendingNodes.push( root );
+
+    while( !pendingNodes.empty() ){
+        BinaryTreeNode<int>* front = pendingNodes.front();
+        pendingNodes.pop();
+
+        swap( front->left, front->right );
+
+        if( front->left != NULL ){
+            pendingNodes.push(front->left);
+        }
+
+        if( front->right != NULL ){
+            pendingNodes.push(front->right);
+        }
+    }
+}

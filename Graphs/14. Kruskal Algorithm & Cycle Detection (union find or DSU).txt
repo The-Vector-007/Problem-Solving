@@ -1,0 +1,58 @@
+Kruskal Algorithm :-
+
+If a graph has n vertices and e edges then to create a MST for that graph ,
+
+(1) Pick n - 1 edges in a sorted manner ( increasing )
+(2) When picking each edge, check whether adding that edge will create a cycle in our MST or not, if yes then skip that edge else 
+continue.
+
+The Algorithm that will be used for Cycle Detection is called Union find or Disjoint sets union.
+
+Idea - If both the vertices of an edge lies within the same component of the graph then adding that edge to MST will lead to cycle 
+formation. If both vertices lie in different components then no cycle formation will take place.
+
+Things to keep in mind for DSU or Union Find :-
+
+-Initially all vertices will be considered in different components i.e. all vertices will belong to different sets such type of sets
+are also called disjoint sets.
+
+-We will maintain a parent array which will tell us that the parent of ith vertex is array[i].
+
+-Initially, all vertices will parent of themselves.
+
+-When adding an edge, we will check the TOP-MOST parent of both vertices ,
+    - If they are different then we will add that edge in MST and make one vertex the parent of other i.e connecting the two vertices(union).
+    - If they belong to same parent then it means that they belong to same component or same set, so we will skip that edge.
+
+- So, overall we are doing the union of all disjoint sets so is the name DISJOINT SET UNION.
+
+Time Complexity of Union find or DSU :-
+
+For an edge, in the worst case we may have to travel the whole array in order to find the TOP-MOST parent or we can say we need to visit
+all the vertices.
+
+Time Complexity - O( V ) , V - no of vertices in the graph.
+
+
+Example :-
+
+1
+ \ 
+  2
+   \
+    3
+     \
+      4
+       \ 
+        5   6
+
+If i want to add (5,6) then i will have to check their top most parent. For 6 it would be 6 but for 5 it would be 1 so I have to travel
+the whole array.
+
+Array :-
+                            1   2   3   4   5   6
+                            1   1   2   3   4   6
+
+                                6 --> 6
+                                5 --> 4 --> 3 --> 2 --> 1 --> 1
+

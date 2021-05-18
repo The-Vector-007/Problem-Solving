@@ -1,0 +1,11 @@
+V getValue(string key){
+    int bucketIndex = getBucketIndex(key);
+    MapNode<V>* head = buckets[bucketIndex];
+    while( head != NULL ){
+        if( head->key == key ){
+            return head->value;
+        }
+        head = head->next;
+    }
+    return 0;
+}

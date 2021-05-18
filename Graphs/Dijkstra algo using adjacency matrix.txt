@@ -1,0 +1,87 @@
+#include<bits/stdc++.h>
+using namespace std;
+
+
+struct Edge{
+    int source;
+    int destination;
+    int distance;
+};
+
+int minimumDistance( int dist[], bool visited[], int vertices ){
+    int min = INT_MAX, min_index;
+
+    for( int i = 0; i < vertices; i++ ){
+        if( !visited[i] && dist[i] <= min ){
+            min = dist[i];
+            min_index = i;
+        }
+    }
+
+    return min_index;
+}
+
+void Dijkstra( vector< vector<int> > graph, int source, int vertices ){
+    int dist[vertices];
+
+    bool visited[vertices];
+
+    for( int i = 0; i < vertices; i++ ){
+        dist[i] = INT_MAX;
+        visited[i] = false;
+    }
+
+    dist[source] = 0;
+
+    for( int i = 0; i < vertices - 1; i++ ){
+        int current = minimumDistance(dist, visited, vertices);
+
+        visited[current] = true;
+
+        for( int next = 0; next < vertices; next++ ){
+            if( !visited[next] && graph[current][next] && dist[current] != INT_MAX && dist[current] + graph[current][next] < dist[next] ){
+                dist[next] = dist[current] + graph[current][next];
+            }
+        }
+    }
+
+    cout<<"Vertex \t \t Distance from Source"<<endl;
+    for( int i = 0; i < vertices; i++ ){
+        cout<<"  "<<i<<" \t \t \t \t "<<dist[i]<<endl;
+    }
+
+}
+
+int main(){
+    int v,e;
+    cout<<"Enter the no of various departments(vertices) and links(edges)"<<endl;
+    cin>>v>>e;
+
+    Edge edges[e];
+
+    // if no of vertices you entered is 5 then valid vertices are 0 , 1, 2, 3 & 4. So enter accordingly.
+    cout<<"Enter the source department, destination department & distance between them (Ex: 0 1 5)"<<endl;
+
+    int source, destination, distance;
+    for( int i = 0; i < e; i++ ){
+        cin>>source>>destination>>distance;
+
+        edges[i].source = source;
+        edges[i].destination = destination;
+        edges[i].distance = distance;
+    } 
+
+    vector< vector<int> > matrix( v, vector<int>(v, 0));
+
+    for( int i = 0; i < e; i++ ){
+        matrix[ edges[i].source ][ edges[i].destination ] = edges[i].distance;
+        matrix[ edges[i].destination ][ edges[i].source ] = edges[i].distance;
+    }
+
+    //valid source departments lie in the range [0, v-1]
+    int source;
+    cout<<"Enter the source department from which you want the shortest distance to all other departments"<<endl;
+    cin>>source;
+
+    Dijkstra(matrix, source, v);
+}

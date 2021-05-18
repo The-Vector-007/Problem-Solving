@@ -1,0 +1,19 @@
+There are two more types of graphs :-
+
+(1) Directed Graph - In these graphs, the edges are one way only.
+
+code:-
+
+    adjMatrix[i][j] = 1; // no need to store adjMatrix[j][i] = 1
+
+(2) Weighted Graph - In these graphs, the edges have some weight on them.
+
+code :-
+
+So, instead of  adjMatrix[i][j] = 1 we will put the corresponding weight i.e. adjMatrix[i][j] = weight.
+
+NOTE :-
+
+The DFS and BFS will remain same for directed graphs.
+
+For weighted graphs, we can check adjMatrix[vertex1][vertex2] >= 0 for an edge to be present and -1 for no edge.

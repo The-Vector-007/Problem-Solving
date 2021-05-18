@@ -1,0 +1,32 @@
+Commonly performed operations on binary search tree are:-
+
+(1) Search Operation
+(2) Insertion Operation
+(3) Deletion Operation
+
+Time Complexity :-
+
+- Time complexity of all BST Operations = O(h).
+- Here, h = Height of binary search tree
+
+In worst case,
+
+The binary search tree is a skewed binary search tree. 1
+Height of the binary search tree becomes n.             \
+So, Time complexity of BST Operations = O(n).            2
+		                                          \
+							   3
+						            \
+							     4
+
+In best case,
+
+The binary search tree is a balanced binary search tree.			
+Height of the binary search tree becomes log(n).
+So, Time complexity of BST Operations = O(logn).
+
+		100						
+	       /    \
+	      20    200
+             /  \   /  \
+   	   10   30 150 300

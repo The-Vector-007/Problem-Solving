@@ -1,0 +1,16 @@
+		100
+	       /    \
+	      20    200
+             /  \   /  \
+   	   10   30 150 300
+
+Preorder : 100 , 20 , 10 , 30 , 200 , 150 , 300
+Inorder : 10 , 20 , 30 , 100 , 150 , 200 , 300
+Postorder : 10 , 30 , 20 , 150 , 300 , 200 , 100
+
+Imp Points :-
+
+(1) Inorder traversal of a binary search tree always yields all the nodes in increasing order.
+(2) Unline Binary Tress,
+    -A binary search tree can be constructed using only preorder or only postorder traversal result.
+    -This is because inorder traversal can be obtained by sorting the given result in increasing order.

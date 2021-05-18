@@ -1,0 +1,18 @@
+Let SUM = lcm(1,n) + lcm(2,n) + ... + lcm(n,n). Then,
+
+
+                      SUM  =  ∑LCM(i, n) (i = 1 to n) = n/2 * ( ∑(d * ETF(d))   +   1) , where d = divisors of n
+
+e.g :-
+
+Let n be 5 then LCM(1, 5) + LCM(2, 5) + LCM(3, 5) + LCM(4, 5) + LCM(5, 5) 
+= 5 + 10 + 15 + 20 + 5 
+= 55
+With Euler Totient Function: 
+All divisors of 5 are {1, 5} 
+Hence, ((1*ETF(1) + 5*ETF(5) + 1) * 5) / 2 = 55
+
+Formula Derivation : https://forthright48.com/spoj-lcmsum-lcm-sum/
+
+Code :-
+

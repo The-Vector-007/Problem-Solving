@@ -1,0 +1,20 @@
+int gcd(int a, int b){
+    if( b == 0 ){
+        return a;
+    }
+    return gcd(b, a%b);
+}
+
+void advancedGCD(int a, string b){
+
+    if( a == 0 ){
+        cout << b << endl;
+        return;
+    }
+
+    int prevMod = 0;
+    for( int i = 0; i < b.length(); i++ ){
+        prevMod = ( (prevMod * 10) + ( b[i] - '0' ) ) % a;
+    }
+    cout << gcd(a, prevMod) << endl;
+}

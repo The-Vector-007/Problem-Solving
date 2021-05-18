@@ -1,0 +1,66 @@
+void Prims(int** adjMatrix, int n, int source){
+    bool visited[n] = {}; 
+
+    int weight[n] = {}; 
+    for( int i = 0; i < n; i++ )
+        weight[i] = INT_MAX;
+    weight[source] = 0;
+
+    int parent[n] = {};
+    for(int i = 0; i < n; i++){
+        parent[i] = -1;
+    }
+
+    int count = 0;
+
+    while(count != n-1){
+
+        int minWeightIndex = -1;
+        int minWeight = INT_MAX;
+        for(int i = 0; i < n; i++){
+            if( !visited[i] && weight[i] < minWeight ){
+                minWeight = weight[i];
+                minWeightIndex = i;
+            }
+        }
+
+        visited[ minWeightIndex ] = true;
+        count++;
+
+        for( int i = 0; i < n; i++ ){
+            if( i == minWeightIndex )
+                continue;
+
+            if( !visited[i] && adjMatrix[minWeightIndex][i] > 0 ){
+                if( adjMatrix[minWeightIndex][i] < weight[i] ){
+                    weight[i] = adjMatrix[minWeightIndex][i];
+                    parent[i] = minWeightIndex;
+                }
+            }
+        }
+    }
+
+    for( int i = 0; i < n; i++ ){
+        if( parent[i] < i ){
+            cout << "Parent : " << parent[i] << " " << "Children :" << i << " Weight : " << weight[i] << endl;
+        }
+        else{
+            cout << "Parent : " << i << " " << "Children :" << parent[i] << " Weight : " << weight[i] << endl;
+        }
+    }
+
+}
+
+Algorithm :-
+
+(1) Pick the node which is UNVISITED and has MINIMUM WEIGHT.
+(2) Visit all its unvisited neighbours or unvisited adjacent nodes and update their weight and parent if new weight is less than
+    previous weight.
+(3) Once all nodes are visited (till n-1 nodes) the parent array will give you the MST.
+
+Time Complexity :-
+
+The time complexity of current code comes out to be O( n^2 ) or O( V^2 ).
+
+But it can be improved if we used priority queue for figuring out the minimum value and adjacency list instead of adjacency matrix
+for visiting the neighbours. Then the time complexity would become O( (E + V) * logV ).

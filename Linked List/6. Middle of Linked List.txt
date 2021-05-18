@@ -1,0 +1,14 @@
+Node * middleOfLL( Node * head ){
+    Node * slow = head;
+    Node * fast = head->next;
+
+    while( true ){
+        if( fast == NULL || fast->next == NULL ){
+            break;
+        }
+        slow = slow->next;
+        fast = fast->next->next;
+    }
+
+    return slow;
+}

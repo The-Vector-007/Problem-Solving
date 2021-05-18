@@ -1,0 +1,55 @@
+vector<int>* getPathBfs(int** adjMatrix, int n, int sv, int ev, bool* visited){
+
+    if(sv==ev){
+        visited[sv]=true;
+        vector<int>* output = new vector<int>();
+        output->push_back(sv);
+        return output;
+    }
+
+    queue<int> pendingVertices;
+    pendingVertices.push(sv);
+    visited[sv] = true;
+
+    unordered_map<int,int> mp;
+
+    while(!pendingVertices.empty()){
+        int currentVertex = pendingVertices.front();
+        pendingVertices.pop();
+
+        for( int i = 0; i < n; i++ ){
+
+            if( i == currentVertex ){
+                continue;
+            }
+
+            if( adjMatrix[currentVertex][i] == 1 && !visited[i] ){
+                pendingVertices.push(i);
+                visited[i] = true;
+                mp[i] = currentVertex;
+                if( i == ev ){      //backtracking, from ending vertex to starting vertex
+                    vector<int>* output = new vector<int>();
+                    int x = i;
+                    while(true){
+                        output->push_back(x);
+
+                        if( x == sv ){
+                            break;
+                        }
+
+                        x = mp[x];
+                    }
+                    return output;
+                }
+            }
+        }
+    }
+
+    return NULL;
+}
+
+NOTE :-
+
+The above code will automatically give you the shortest path between source node and destination node.
+
+BFS gives you shortest path for graph with no loops and it must be UNWEIGHTED!.s

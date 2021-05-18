@@ -1,0 +1,14 @@
+BinaryTreeNode<int>* BSTFromSortedArray( int * arr, int start, int end ){
+    if( start > end ){
+        return NULL;
+    }
+
+    int rootIndex = (start + end)/2;
+    int rootElement = arr[rootIndex];
+    BinaryTreeNode<int>* root = new BinaryTreeNode<int>(rootElement);
+
+    root->left = BSTFromSortedArray(arr, start, rootIndex - 1);
+    root->right = BSTFromSortedArray(arr, rootIndex+1, end);
+
+    return root;
+}

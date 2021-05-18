@@ -1,0 +1,53 @@
+pair< Node<int> *, Node<int> * > LLUsingBst( BinaryTreeNode<int>* root ){ // first = head, second = tail
+    if( root == NULL ){
+        pair< Node<int> *, Node<int> * > p;
+        p.first = NULL;
+        p.second = NULL;
+        return p;
+    }
+
+    Node<int> * midNode = new Node<int>( root->data );
+
+    pair< Node<int>*, Node<int>* > left = LLUsingBst( root->left );
+
+    if( left.first == NULL && left.second == NULL ){
+        left.first = midNode;
+        left.second = midNode;
+    }
+    else{
+        Node<int>* temp1 = left.second;
+        temp1->next = midNode;
+        left.second = temp1->next;
+    }
+
+    pair< Node<int>*, Node<int>* > right = LLUsingBst( root->right );
+
+    if( right.first == NULL && right.second == NULL ){
+        right.first = midNode;
+        right.second = midNode;
+    }
+    else{
+        midNode->next = right.first;
+    }
+
+    pair< Node<int>*, Node<int>* > ans;
+    ans.first = left.first;
+    ans.second = right.second;
+
+    return ans ;
+}
+
+int main(){
+
+    BinaryTreeNode<int> * root = takeInputLevelWise();
+
+    pair< Node<int>*, Node<int>* > ans = LLUsingBst(root);
+    Node<int>* head = ans.first;
+
+    while( head != NULL ){
+        cout << head->data << " ";
+        head = head->next;
+    }
+
+    delete root;
+}

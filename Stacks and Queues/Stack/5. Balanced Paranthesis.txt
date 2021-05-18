@@ -1,0 +1,58 @@
+bool isBalanced( string str ){
+    stack<char> s;
+    for( char ch : str ){
+        if( ch == '{' || ch == '[' || ch == '(' ){
+            s.push( ch );
+            continue;
+        }
+
+        if( ch == '}' || ch == ']' || ch == ')'){
+            switch(ch){
+                case '}':{
+                    if( s.empty() ){
+                        return false;
+                    }
+                    if( s.top() == '{' ){
+                        s.pop();
+                    }
+                    else{
+                        return false;
+                    }
+                    break;
+                }
+
+                case ']':{
+                    if( s.empty() ){
+                        return false;
+                    }
+                    if( s.top() == '[' ){
+                        s.pop();
+                    }
+                    else{
+                        return false;
+                    }
+                    break;
+                }
+
+                case ')':{
+                    if( s.empty() ){
+                        return false;
+                    }
+                    if( s.top() == '(' ){
+                        s.pop();
+                    }
+                    else{
+                        return false;
+                    }
+                    break;
+                }
+            }    
+        }
+    }
+
+    if( s.empty() ){
+        return true;
+    }
+    
+    return false;
+}

@@ -1,0 +1,19 @@
+Depth of a node is defined as the distance of current node from root node.
+e.g: Depth of root node is 0. ( level is 0 )
+
+Level <-> Depth 
+
+void printAtLevelK( TreeNode<int> * root, int k ){
+    if( root == NULL ){
+        return;
+    }
+
+    if( k == 0 ){
+        cout << root->data << " ";
+        return;
+    }
+
+    for( int i = 0; i < root->children.size(); i++ ){
+        printAtLevelK(root->children[i], k-1);
+    }
+}

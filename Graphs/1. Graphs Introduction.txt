@@ -1,0 +1,7 @@
+A graph consists of a set of vertices connected with each other through a set of vertices.
+
+A tree is a special type of graph.
+
+A tree has two proprties which makes it different from a graph :-
+(1) All the nodes are connected with each other in such a way that there always exists a path from one node to other.
+(2) A tree doesn't have any cycles i.e it is acyclic

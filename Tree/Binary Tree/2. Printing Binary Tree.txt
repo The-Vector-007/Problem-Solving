@@ -1,0 +1,20 @@
+void printBinaryTree( BinaryTreeNode<int>* root ){
+    if( root == NULL ){
+        return;
+    } 
+
+    cout << root->data << " : ";
+
+    if( root->left != NULL ){
+        cout <<"L - " << root->left->data;
+    }
+
+    if( root->right != NULL ){
+        cout <<", R - " << root->right->data;
+    }
+
+    cout << endl;
+
+    printBinaryTree(root->left);
+    printBinaryTree(root->right);
+}

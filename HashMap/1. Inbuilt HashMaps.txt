@@ -1,0 +1,35 @@
+There are two inbuilt hashmaps in cpp :-
+
+(1) map -- implemented using BST -- all operations take O( log(n) ). ( can be traversed in sorted manner (inorder) ).
+(2) unordered_map -- implemented using hash table -- all operations take O(1).
+
+Some important points :-
+
+(1) There is only one key in a hashmap. i.e no duplicate keys are allowed.
+
+(2) Insert :-
+
+mymap[ key ] = value;
+
+or
+
+pair< key, value > p ( key1, value1 );
+mymap.insert(p);
+
+(3) find or access :-
+
+you can access keys using either [] or at() function.
+
+(a) mymap.at(key) = if the key is present then it returns its value else throws an error.
+(b) mymap[ key ] = if the key is present then it return its value else it inserts that key and sets a default value for it. (if int then 0)
+
+(4) check presence of a key :-
+
+ mymap.count(key) -- it either return 0 or 1.
+
+ if key is present it returns 1 else 0.
+
+ (5) Erase a key :-
+
+  mymap.erase(key) -- will erase the (key,value) pair if present else does nothing.
+

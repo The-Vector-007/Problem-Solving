@@ -1,0 +1,54 @@
+There were two issues due to which we didn't use balanced bst :-
+(1) Balancing - each time we insert a node we had to balance the tree.
+(2) Storage - Too many pointers would be reqd. to store the bst.
+
+The complete binary tree solves both the issues.
+
+(1) Balancing :-
+
+Minimum no of nodes for a CBT of height h = 2^0 + 2^1 + .... + 2^(h-2) + 1 = 2^(h-1) - 1 + 1 = 2^(h-1)
+Maximum no of nodes for a CBT of height h = 2^0 + 2^1 + .... + 2^(h-1) = 2^h - 1
+
+so, 
+                        2^(h-1)    <=    n     <=   2^h - 1
+
+n >= 2^(h-1)                                                                n <= 2^h - 1
+                                                                            
+Taking log base 2 on both sides,                                            n + 1 <= 2^h
+
+log(n) >= (h-1)                                                             Taking log base 2 on both sides,
+
+h <= log(n) + 1                                                             h >= log(n+1)
+
+Conclusion is,
+                            O(log(n)) <= O(h) <= O(log(n)) i.e. in a CBT height will be strictly O(log(n)). So no need of balancing.
+
+(2) Storing :-
+
+A CBT can be easily stored in an array. The CBT must be stored level wise.
+
+e.g :-
+
+                                                            1
+                                                          /    \
+                                                        2        3
+                                                      /   \    /   \
+                                                    4      5  6     7
+                                                  /  
+                                                8
+
+THIS IS A VALID CBT.
+
+array : [ 1, 2, 3, 4, 5, 6, 7, 8 ]
+          0  1  2  3  4  5  6  7
+
+(1) For any element with index i , its children can be found as,
+
+            left child = 2i + 1                                             right child = 2i + 2
+
+(2) For any element with index i, its parent can be found as,
+
+                                    parent index = (i-1)/2
+
+NOTE :-
+The CBT will be stored as an array but you have to visualise it as an actual tree.

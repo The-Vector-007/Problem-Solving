@@ -1,0 +1,35 @@
+Heaps follows two Major Properties :-
+
+(1) Complete Binary Tree
+(2) Heap Order Property
+
+Complete Binary Tree:-
+
+In a complete Binary Tree, all levels must be filled except the last one, it should be filled from left to right.( you need to take
+care of this when inserting and deleting an element. )
+
+Heap Order Property :-
+
+Heaps are of two types - (1) Min Heap (2) Max Heap
+
+So, the heap order property is also of two types (i.e one for each) :-
+
+(a) Min Heap order property - In the whole CBT , each parent node must have value smaller than its left and right children.
+
+e.g :-                  1
+
+                    2       3
+                
+                4      5 6      7
+
+            8
+
+(2) Max Heap order property - In the whole CBT, each parent node must have value greater than its left and right children.
+
+e.g :-                  8
+
+                    7       6
+
+                5      4 3     2
+
+            1

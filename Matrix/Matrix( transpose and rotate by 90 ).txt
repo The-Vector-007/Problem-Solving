@@ -1,0 +1,39 @@
+#include<bits/stdc++.h>
+using namespace std;
+#define n 2
+#define m 4
+
+void transposeSquare( int arr[n][m] ){ //for square matrix only
+    for( int i = 0; i < n; i++ ){
+        for( int j = i+1; j < m; j++ ){
+            swap(arr[i][j], arr[j][i]);
+        }
+    }
+}
+
+void transposeRectangle( int arr[n][m], int res[m][n] ){ //for both square and rectangle matrix only
+    for( int i = 0; i < m; i++ ){
+        for( int j = 0; j < n; j++ ){
+            res[i][j] = arr[j][i];
+        }
+    }
+}
+
+void rotateClockwise90degree( int res[m][n] ){ // assuming the matrix is transposed already
+    // reversing each row
+    for( int i = 0; i < m; i++ ){
+        for( int j = 0; j < n/2; j++ ){
+            swap( res[i][j], res[i][n-1-j] );
+        }
+    }
+}
+
+void rotateAnticlockwise90degree( int arr[n][m] ){ // assuming the matrix is transposed already
+    // reversing each column
+    for( int i = 0; i < m; i++ ){
+        for( int j = 0; j < n/2; j++ ){
+            swap( arr[j][i], arr[n-1-j][i] );
+        }
+    }
+}
+

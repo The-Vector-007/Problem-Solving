@@ -1,0 +1,88 @@
+(I) Recursive :-
+
+(1)Time Complexity = O(n^2)
+
+Node * reverseLL( Node * head ){
+    if( head == NULL || head->next == NULL ){
+        return head;
+    }
+
+    Node * smallAns = reverseLL( head->next );
+
+    Node * temp = smallAns;
+    while( temp->next != NULL ){
+        temp = temp -> next;
+    }
+
+    temp->next = head;
+    head->next = NULL;
+
+    return smallAns;
+}
+
+
+(2) Time Complexity = O(n)
+
+class Pair{
+    public:
+        Node * head;
+        Node * tail;
+};
+
+Pair reverseLL_2( Node * head){
+    if( head == NULL || head->next == NULL ){
+        Pair obj;
+        obj.head = head;
+        obj.tail = head;
+        return obj;
+    }
+
+    Pair smallAns = reverseLL_2( head->next );
+
+    smallAns.tail->next = head;
+    head->next =  NULL;
+
+    Pair obj;
+    obj.head = smallAns.head;
+    obj.tail = head;
+    return obj;
+}
+
+Node * reverseLL_better( Node * head ){
+    return reverseLL_2(head).head;
+}
+
+(3) Time complexity = O(n) but no pair object reqd.
+
+Node * reverseLL_3( Node * head ){
+    if( head == NULL || head->next == NULL ){
+        return head;
+    }
+
+    Node * smallAns = reverseLL( head->next );
+
+    Node * tail = head->next;
+    tail->next = head;
+    head->next = NULL;
+
+    return smallAns;
+}
+
+(II) Iterative :-
+
+Node * reverseLL_Iterative( Node * head ){
+    Node * prev = NULL,* current = head, *next = head->next;
+
+    while( current != NULL ){
+
+        current->next = prev;
+
+        prev = current;
+        current = next;
+        if( next != NULL ){
+            next = next->next;
+        }
+    }
+
+    return prev;
+}

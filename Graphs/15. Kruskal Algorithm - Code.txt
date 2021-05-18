@@ -1,0 +1,79 @@
+#include<bits/stdc++.h>
+using namespace std;
+
+class Edge{
+    public:
+        int source;
+        int destination;
+        int weight;
+};
+
+int findParent(int v, int* parent){
+    if( parent[v] == v ){
+        return v;
+    }
+    return findParent(parent[v], parent);
+}
+
+bool f(Edge e1, Edge e2){
+    return e1.weight < e2.weight;
+}
+
+void Kruskal(Edge* input, int n, int e){
+
+    sort(input, input + e, f);  // Step 2 - sorting the edges based on weight
+
+    Edge output[n-1];
+
+    int parent[n];
+    for( int i = 0; i < n; i++ ){
+        parent[i] = i;
+    }
+
+    //Step 3
+
+    int count = 0, inputIndex = 0;
+    while(count != n-1){
+        Edge currentEdge = input[inputIndex];
+
+        int sourceParent = findParent(currentEdge.source, parent);
+        int destinationParent = findParent(currentEdge.destination, parent);
+
+        if( sourceParent != destinationParent ){    // If vertices lie in different components add the edge to MST else skip
+            output[count] = currentEdge;
+            count++;
+            parent[sourceParent] = destinationParent;
+        }
+        
+        inputIndex++;
+    }
+
+    cout << "Resulting output is : " << endl;
+
+    for( int i = 0; i < n-1; i++ ){
+        if( output[i].source < output[i].destination ){
+            cout << output[i].source <<" "<< output[i].destination <<" "<< output[i].weight << endl;
+        }
+        else{
+            cout << output[i].destination <<" "<< output[i].source <<" "<< output[i].weight << endl;
+        }
+    }
+}
+
+int main(){
+    int n, e;
+    cin >> n >> e;
+
+    Edge input[e];
+
+    for( int i = 0; i < e; i++ ){   // Step 1 - Take input
+        int s, d, w;
+        cin >> s >> d >> w;
+
+        input[i].source = s;
+        input[i].destination = d;
+        input[i].weight = w; 
+    }
+
+    Kruskal(input, n, e);
+}

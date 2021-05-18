@@ -1,0 +1,30 @@
+The no of balanced binary tree of height h that are possible can be easily found using the following equation,
+
+    no of BBT  = (x * x) + (2 * x * y)
+
+where,
+        x = no of BBT of height h-1
+        y = no of BBT of height h-2
+
+So we know the answer for h = 0 and h = 1 which is 1.
+
+h = 0 --> 1 tree without any root
+h = 1 --> 1 tree with single root node
+
+With the help of above equation we can find BBT of any height h recursively or can use dp to optimize our code.
+
+Code :-
+
+const int mod = 1e9 + 7;
+  
+long long int countBT(int h) { 
+    vector<long long> dp(h+1);
+    dp[0] = 1;
+    dp[1] = 1;
+    
+    for( int i = 2; i <= h; i++ ){
+        dp[i] = ((dp[i-1]%mod * dp[i-1]%mod)%mod + (2%mod * dp[i-1]%mod * dp[i-2]%mod)%mod)%mod;
+    }
+    
+    return dp[h];
+}

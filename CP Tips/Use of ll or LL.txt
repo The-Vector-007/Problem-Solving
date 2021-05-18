@@ -1,0 +1,18 @@
+// A program shows problem if we 
+// don't use 1ll or 1LL 
+#include <iostream> 
+using namespace std; 
+int main() 
+{ 
+    int x = 1000000; 
+    int y = 1000000; 
+  
+    // This causes overflow even 
+    // if z is long long int 
+    long long int z = x*y; 
+  
+    cout << z; 
+    return 0; 
+} 
+
+You might get some other negative value as output. So what is the problem here? The ints are not promoted to long long before multiplication, they remain ints and their product as well. Then the product is cast to long long, but we are late now as overflow has already occurred. Having one of x or y as long long should would work, as the other would be promoted. We can also use 1LL (or 1ll). LL is the suffix for long long, which is 64-bit on most C/C++ implementations. So 1LL, is a 1 of type long long.

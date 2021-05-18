@@ -1,0 +1,24 @@
+Properties :-
+
+(1) The value of a % m ranges from 0 to m-1.
+
+(2) (a+b)%m = ( a%m + b%m ) % m
+(3) (a-b)%m = ( a%m - b%m + m ) % m
+(4) (a*b)%m = ( a%m * b%m ) % m
+(5) (a/b)%m = ( a%m / b%m ) % m this isn't always true as denominator can be zero. ( this holds true under a specific condition)
+
+(a/b) % m = ( a * inv ) % m where inv is the modular inverse of b i.e modInverse(b,m).
+
+(6) if a is negative then in c++ the correct remainder would be ((a%m) + m)%m.
+
+e.g :-
+
+    -5 % 3 will give -2 which is wrong as it should be in [0,2].
+    so the correct answer would ( (-5 % 3) + 3 ) => ( -2 + 3 ) => 1.
+
+In c++ % this just gives us the remainder.
+
+-5 % 3 = -2
+5 % -3 = 2  
+
+The sign of first operand retains in the answer.

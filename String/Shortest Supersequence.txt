@@ -1,0 +1,82 @@
+1. Printing length of Scs :-
+
+int lcs( int x, int y, char* s1, char* s2 ){
+
+    int t[x+1][y+1];
+
+    for( int i = 0; i < x+1; i++ ){
+        for( int j = 0; j < y+1; j++ ){
+            if( i == 0 || j == 0 )
+                t[i][j] = 0;
+            else{
+                if( s1[i-1] == s2[j-1] )
+                    t[i][j] = 1 + t[i-1][j-1];
+                else
+                    t[i][j] = max( t[i-1][j], t[i][j-1] );
+            }
+        }
+    }
+
+    return t[x][y];
+}
+
+
+int shortestCommonSupersequence(char* X, char* Y, int m, int n) {
+    int common = lcs( m, n, X , Y );
+    return (m + n - common);
+}
+
+2. Printing Scs :-
+
+void printScs( int x, int y, string s1, string s2 ){
+
+    int t[x+1][y+1];
+
+    for( int i = 0; i < x+1; i++ ){
+        for( int j = 0; j < y+1; j++ ){
+            if( i == 0 || j == 0 )
+                t[i][j] = 0;
+            else{
+                if( s1[i-1] == s2[j-1] )
+                    t[i][j] = 1 + t[i-1][j-1];
+                else
+                    t[i][j] = max( t[i][j-1], t[i-1][j] );
+            }
+        }
+    }
+
+    int i = x, j = y;
+    string ans = "";
+
+    while( i > 0 && j > 0 ){
+        if( s1[i-1] == s2[j-1] ){
+            ans.push_back( s1[i-1] );
+            i--;
+            j--;
+        }
+        else{
+            if( t[i][j-1] > t[i-1][j] ){
+                ans.push_back(s2[j-1]);
+                j--;
+            }
+            else{
+                ans.push_back(s1[i-1]);
+                i--;
+            }
+        }
+    }
+
+    while( i > 0 ){
+        ans.push_back( s1[i-1] );
+        i--;
+    }
+
+    while( j > 0 ){
+        ans.push_back( s2[j-1] );
+        j--;
+    }
+
+    reverse( ans.begin(), ans.end() );
+
+    cout<<ans<<endl;
+}

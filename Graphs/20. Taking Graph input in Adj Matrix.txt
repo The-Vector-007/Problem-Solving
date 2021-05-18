@@ -1,0 +1,27 @@
+int main(){
+    int n; // 0 -- n-1 vertices
+    int e; // no of edges
+    cin >> n >> e;
+
+    int** adjMatrix = new int*[n]; //array of pointers , each pointer will hold the adress of an array
+
+    for( int i = 0; i < n; i++ ){
+        adjMatrix[i] = new int[n];  // i th pointer holding the address of i th array
+        for( int j = 0; j < n; j++ ){
+            adjMatrix[i][j] = 0;    /// must be initialized with some value (garbage value is dangerous)
+        }
+    }
+
+    for( int i = 0; i < e; i++ ){
+        int s, e, w;               // edges will be inputed as staring vertex then ending vertex
+        cin >> s >> e >> w;
+
+        adjMatrix[s][e] = w;    //for the time being it is an undirected graph
+        adjMatrix[e][s] = w; 
+    }
+
+    for( int i = 0; i < n; i++ ){ // dynamically allocated memory must be freed.
+        delete[] adjMatrix[i];
+    }
+    delete[] adjMatrix;
+}

@@ -1,0 +1,27 @@
+(1) using postorder traversal :-
+
+void deleteTree( TreeNode<int> * root ){
+    if( root == NULL ){
+        return;
+    }
+
+    for( int i = 0; i < root->children.size(); i++ ){
+        deleteTree(root->children[i]);
+    }
+
+    delete root;
+}
+
+(2) using destructor :-
+
+How destructor works : Once you call " delete obj " first the destrcutor of the class runs and then the object is deleted.
+
+~TreeNode(){
+            for( int i = 0; i < children.size(); i++ ){
+                delete children[i];
+            }
+        }
+
+Explanation :  1
+	     2   3
+delete root; --> calls destructor of 1-->loop runs for children of 1 --> destructor deletes 1st child (2) again its destructor is called --> loop doesn't runs 2 is deleted-->destructor deleted 2nd child (3) -->loop doesn't run 3 is deleted --> work of loop for 1 is finished --> 1 is deleted. 

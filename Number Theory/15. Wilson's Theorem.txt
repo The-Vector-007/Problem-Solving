@@ -1,0 +1,85 @@
+Wilson theorem states that if p is a prime number then,
+
+                                        (p - 1) ! ≡  -1   mod p 
+                                    OR  
+                                        (p - 1) ! ≡  (p-1) mod p
+
+In simpler terms,
+
+                (1) (p-1)! % p = p-1 (main) <== Remember this only
+                (2) (p-2)! % p = 1
+                (3) (p-3)! % p = (p-1)/2
+
+E.g :-
+
+Finding 10! % 11,
+                  10! % 11 = 10 ( acc to wilson's theorem )
+
+Finding 9! % 11,
+                we know 10! % 11 = 10 or Remainder(10! / 11) = 10 => Remainder(9! x 10 / 11) = 10 => Remainder(9! / 11) = 1 
+
+Finding 8! % 11,
+
+            we know 10! % 11 = 10 or Remainder(10! / 11) = 10 => Remainder(8! x 9 x 10 / 11) = 10 => Remainder(8!/11) x -2 x -1 = 10
+
+            => Remainder(8!/11) = 10/2 = 5
+
+    9 % 11 = -2 , 10 % 11 = -1 ( Negative Remainder, always add the denominator to Negative Remainder ) => -2 + 11 = 9, -1 + 11 = 10
+
+Application : We can use wilson theorem for finding n! % p , if p is a prime and n < p.
+
+From wilson's theorem we know that,
+
+                                        (p-1)! % p = -1
+                        
+                        (1 x 2 x 3 x ... x n x (n+1) x (n+2) x ... x (p-1))%p = -1
+
+                        ( n! x (n+1) x (n+2) x ... x (p-1) ) % p = -1
+
+                        ( n!%p x (n+1)%p x (n+2)%p x ... x (p-1)%p ) % p = -1 
+
+                        Therefore,
+                                    n! % p = (-1 x inv(n+1) % p x inv(n+2) % p x ... x inv(p-1)%p) % p + p
+
+                NOTE : inv(n+1) % p can be calculated using Fermats theorem i.e. inv(A) % m = A^(m-2) % m , m = prime
+
+E.g :- 25! % 29
+
+Here, 29 is prime and 25 < 29. So we can find it.
+
+                                                28! % 29 = 28
+                                            ( 25! x 26 x 27 x 28 ) % 29 = -1 ( Wilson theorem )
+                                            25! % 29 = (-1 x Inv(26,29)%29 x Inv(27,29)%29 x Inv(28,29)%29) % 29 + 29
+
+                            Here, Inv(26,29) means Inverse of 26 under mod 29 which can be calculated using Modular exponentiation. 
+
+Code :-
+
+ll modExp(ll a, ll b, ll m){
+    if( b == 0 ){
+        return 1 % m;
+    }
+    ll res = 1;
+    while( b > 0 ){
+        if( b & 1 ){    // b is odd
+            res = (res * a) % m;
+        }
+        a = (a * a) % m;
+        b = b/2;
+    }
+
+    return res;
+}
+
+// n! % p . 5! % 11 = 120 % 11 = 10
+ll wilson(ll n, ll p){
+    ll ans = -1;
+
+    for( ll i = n+1; i <= (p-1); i++ ){
+        ans = ans * modExp(i,p-2,p)%p;
+    }
+
+    ans = ans % p + p;
+
+    return ans;
+}

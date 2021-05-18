@@ -1,0 +1,17 @@
+BinaryTreeNode<int>* Search( BinaryTreeNode<int>* root, int key ){ // u can use true or false as 								   // well.
+    if( root == NULL ){
+        return NULL;
+    }
+
+    else if( key == root->data ){
+        return root;
+    }
+
+    else if( key < root->data ){
+        return Search(root->left, key);
+    }
+
+    else {
+        return Search(root->right,key);
+    }
+}

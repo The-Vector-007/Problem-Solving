@@ -1,0 +1,29 @@
+(1) any_of :-
+returns true iff any of the elements in the range [first, last) satisfies some condition.
+
+bool ok = any_of(a.begin(), a.end(), [](int x) { return x == 9; });
+
+(2) all_of :-
+returns true iff all the elements in the range [first, last) follow some condition.
+
+bool ok = all_of(a.begin(), a.end(), [](int x) { return x == 9; });
+
+(3) none_of :-
+returns true iff all the elements does not follow some condition.
+
+bool ok = none_of(a.begin(), a.end(), [](int x) { return x == 9; });
+
+(4) count :-
+This functions counts the number of elements in the range [first, last) that are equal to some variable val.
+
+int cnt = 0;
+for(int i = 0; i < (int)(a).size(); ++i) {
+	cnt += (a[i] == x);
+}
+
+int cnt = count(a.begin(), a.end(), x);
+
+(5) find :-
+This function returns the first iterator that compares equal to val.
+
+int hld = find(a.begin(), a.end(), x) - a.begin(); // 0-based index

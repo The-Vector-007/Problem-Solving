@@ -1,0 +1,101 @@
+                                            S(n) = S(n-1) + F(n)
+                            
+                            Where,
+                                    S(n) = Sum of n Fibonacci Numbers
+                                    F(n) = nth Fibonacci Number
+
+Now according to the recurrence relation,
+
+                                            F(n) = F(n-1) + F(n-2)
+
+                                            F(n-1) = F(n-2) + F(n-3)
+
+                                            F(n-2) = F(n-3) + F(n-4)
+
+                                                    .
+                                                    .
+                                                    .
+                                                    .
+                                            
+                                            F(3) = F(2) + F(1)
+
+                                            F(2) = F(1) 
+
+                                            F(1) = 1
+
+On Simplifying,
+
+                                    F(n) = F(n-2) + F(n-3) + F(n-4) + ... + F(1) + 1
+
+                                    F(n) - 1 = F(n-2) + F(n-3) + F(n-4) + ... + F(1)
+
+                                    F(n) - 1 = S(n-2) -- (1)
+
+                     From eq (1),
+
+                                    S(n-2) = F(n) - 1
+
+                                    putting n = n+2,
+
+                                    S(n) = F(n+2) - 1
+
+                We can find the F(n+2)th fibonacci number using Matrix Exponentiation in log(n) time.
+
+                                1 --------- Nth Fibonacci ------------ Mth Fibonacci
+
+Sum of Fibonacci Numbers from Nth fibonacci to Mth Fibonacci = S(M) - S(N-1) = ( F(M+2) - 1 ) - ( F(N+1) - 1 ) = F(M+2) - F(N+1) -Ans.
+
+Code :-
+
+typedef unsigned long long ull;
+
+void matrixMultiplication(ull A[2][2],ull B[2][2]){
+    ull a = A[0][0]*B[0][0] + A[0][1]*B[1][0];
+    ull b = A[0][0]*B[0][1] + A[0][1]*B[1][1];
+    ull c = A[1][0]*B[0][0] + A[1][1]*B[1][0];
+    ull d = A[1][0]*B[0][1] + A[1][1]*B[1][1];
+
+    A[0][0] = a%mod;
+    A[0][1] = b%mod;
+    A[1][0] = c%mod;
+    A[1][1] = d%mod;
+}
+
+void matrixExponentiation(ull M[2][2], ull n){
+    if( n == 0 || n == 1 )
+        return;
+
+    matrixExponentiation(M, n/2);
+
+    matrixMultiplication(M,M);
+
+    if( n % 2 != 0 ){
+        ull tempM[2][2] = {
+            {1, 1},
+            {1, 0}
+        };
+        matrixMultiplication(M,tempM);
+    }
+}
+
+// 0th - 0, 1st - 1, 2nd - 1, 3rd - 2 ...
+ull nthFibonacci( ull n ){
+    if( n == 0 )
+        return 0;
+
+    ull M[2][2] = {
+        { 1, 1 },
+        { 1, 0 }
+    };
+
+    matrixExponentiation(M, n-1);
+
+    return M[0][0]%mod;
+}
+
+//Sum from Nth fibonacci to Mth Fibonacci
+int FiboSum(int M, int N){
+    return (nthFibonacci(M+2)%mod - nthFibonacci(N+1)%mod + mod)%mod;
+}
+
+Time Complexity - O( logN + logM )                            

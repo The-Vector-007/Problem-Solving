@@ -1,0 +1,24 @@
+(1) Adjacent vertices - If two vertices have a direct edge between them then they are called Adjacent vertices.
+
+(2) Degree - No of edges passing through a vertex is called its degree.
+
+(3) Path - collection of edges through which one can reach from one vertex to other.
+
+(4) Connected Graph - A graph is called connected if , for any two vertices in that graph there exists a path.
+
+(5) Connected Components - The whole graph is not connected but some parts of it are connected , these parts are called Connected
+Components.
+Note - A single isolated vertex will also be counted as a connected Component.
+
+(6) Tree - connected graph which does not have a cycle.
+
+Let n be the no of vertices in a graph. Then,
+
+Minimum no of edges = 0
+
+Minimum no of edges in connected graph = n - 1 ( this is same for a tree as well ) 
+( connected but no cycle )
+
+Number of edges in a complete graph( each vertex is connected with every other vertex ) = n choose 2 or nC2 = n(n-1)/2
+
+In a connected graph, if your algorithm depends upon no of edges then it can vary from O(n) to O(n^2).

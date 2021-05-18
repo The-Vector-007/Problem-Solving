@@ -1,0 +1,106 @@
+gcd(a,b) = The largest possible number which divides both a and b.
+
+Range : 1 <= gcd(a,b) <= min(a,b)
+
+Brute force : Iterate from 1 to min(a,b) and check if i divides both a and b and update the gcd accordingly.
+
+Euclid's Algorithm :-
+
+If a > b then, 
+                    gcd(a,b) = gcd(b,a%b)
+                
+NOTE :-
+
+gcd(a,0) = a
+gcd(a,1) = 1
+
+Code :-
+
+int gcd(int a, int b){
+    // Special case when b > a
+    if( b > a ){
+        return gcd(b,a);
+    }
+
+    //base case
+    if( b == 0 ){
+        return a;
+    }
+
+    return gcd(b, a%b);
+}
+
+Time Complexity :-
+
+If a > b then,
+                 gcd(a,b) = gcd(b, a%b)
+
+                 Let r = a % b then 0 <= r <= b-1 or r < b
+                 Also,
+                        r = a - b * [a/b]  ( [] == floor of a and b )
+                        as, a > b => a/b >= 1
+                        so, r <= a - b
+
+So we have two equations, 
+                            r < b --(1)
+                            r <= a - b --(2)
+                            Adding (1) & (2),
+
+                            2*r < a
+                            r < a/2
+
+        Now,
+
+            gcd(a,b) = gcd(b,r)  where r = a%b
+            gcd(b,r) = gcd(r,b%r)
+
+            gcd(r, b%r) => here we can notice that in just 2 steps we have come from a to a/2.
+            as r < a/2 and b%r < (a/2)/2 = a/4
+
+Similary,
+
+                    gcd(a,b)
+                        |
+                    gcd(a/2,..)
+                        |
+                    gcd(a/4,..)
+                        |
+                    gcd(a/8,..)
+                        |
+                    gcd(1,..)
+
+    Assuming all steps to be k,
+                                a / 2^k = 1    
+                                a = 2^k
+                                Taking log base 2 on both sides,
+
+                                log(a) = k
+
+Therefore, the time complexity of finding gcd through euclid algorithm is : O ( log( max(a,b) ) ).
+
+NOTE :-
+
+Acc to chinese remainder theorem : Dividend = Divisor * Quotient + remainder
+
+for two numbers a and b,
+                            a % b = a - b * [a/b] , [] -- floor
+
+Summary :-
+
+(1) Range : 1 <= gcd(a,b) <= min(a,b)
+(2) Euclid Algorithm : If a > b then, 
+                                    gcd(a,b) = gcd(b,a%b)
+(3) Time Complexity : O ( log( max(a,b) ) )
+(4) gcd(a,0) = a
+    gcd(a,1) = 1
+(5) a % b = a - b * [a/b] , [] -- floor
+(6) If a > b, a % b < a/2
+(7) If gcd(a,b) = 1 then, a and b are coprime.
+(8) To simplify a equation like a.x + b.y = d divide the whole equation by gcd(a,b,d).
+(9) gcd(a,b) = g i.e a/g and b/g then (a+b)/g and (a-b)/g is also true for a >= b i.e. gcd(a,b) = gcd(a+b,b) = gcd(a-b,b) = gcd(a+b,a-b).
+
+    Proof :-
+
+    gcd(a,b) = g then a = k1 x g, b = k2 x g  => (a+b) = (k1+k2) x g => (a-b) = (k1-k2) x g , a >= b
+
+(10) gcd(a,b) = g then gcd(a/g,b/g) = 1

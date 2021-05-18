@@ -1,0 +1,18 @@
+BinaryTreeNode<int>* takeInput(){ // input data == -1 then NULL tree must be returned.
+    int rootData;
+    cout << "Enter Data: ";
+    cin >> rootData;
+    cout << endl;
+
+    if( rootData == -1 ){
+        return NULL;
+    }
+
+    BinaryTreeNode<int>* root = new BinaryTreeNode<int>(rootData);
+    BinaryTreeNode<int>* leftChild = takeInput();
+    BinaryTreeNode<int>* rightChild = takeInput(); 
+    root->left = leftChild;
+    root->right = rightChild;
+
+    return root;
+}

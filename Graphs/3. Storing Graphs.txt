@@ -1,0 +1,13 @@
+There are three ways of storing graphs :-
+
+(1) Edge list - Store all the vertices and all edges. ( Least efficient )
+
+(2) Adjacency List - For each vertex, we store its corresponding vertices which are connected to it.
+
+(3) Adjacency Matrix - We create a matrix of n x n ( n being the total vertices ). Each (i,j) value representing whether the two 
+vertices have an edge or not.
+
+The disadvantage of Adjacency matrix is that it requires O(n^2) space and if the graph is a sparse graph ( having very less edges )
+then a lot of space is wasted. 
+
+The easiest method to store a graph is Adjacency matrix and more commmonly used as well.

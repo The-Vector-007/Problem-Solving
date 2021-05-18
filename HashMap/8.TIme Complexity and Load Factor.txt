@@ -1,0 +1,33 @@
+In our hashmap , three types of operations are taking place insert, delete and search. All three requires traversing the whole linked
+list at given index. So, their time complexity is also similar.
+
+The first thing we do in each operation is finding the bucketIndex or the hashcode , finding the hashcode depends upon the length of
+the string (which have taken to be the key). But normally this length is not so big, so we can neglect it.
+
+The time complexity mainly depends upon n ( n - no. of entries ).
+In the worst case what can happen is all the entries goes to the same index.
+But the way we are hashing makes it really hard that all the entries go to the same place.
+
+If 'n' be the no of entries and 'b' be the no of buckets or array size then, it will so happen that each bucket gets n/b entrie
+equally distributed.
+
+Here, 
+        n/b is called the Load Factor.
+
+To keep the time complexity as low as possible,
+
+                                                n/b < 0.7 
+
+Buckets must be more than the no of entries.
+
+For this we will do something called 'Rehashing'.
+
+n/b ratio will increase when n will increase, so when n/b tries to become greater than 0.7 we will do Rehashing.
+
+Rehashing - Let's say we will double the size of the array and copy the old structure into new array.
+
+NOTE :-
+
+With the help of this optimization the time complexity for each operation will become O(1).
+
+Rehashing will not occur too often!

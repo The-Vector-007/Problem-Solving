@@ -1,0 +1,44 @@
+Every number can be expressed as a product of prime numbers.
+
+                                    N = p1^a * p2^b * p3^c *...* pn^k
+
+This is also known as the prime factorization of that number.
+
+If we know the prime factorization of a number we can calculate the no of divisors of that number.
+
+                    Total Divisors = (a+1) * (b+1) * (c+1) *...* (k+1)
+
+E.g  24 = 2^3 * 3^1, divisors = (3+1) * (1+1) = 4 * 2 = 8 i.e. 1 2 3 4 6 8 12 24
+     10 = 2^1 * 5^1, divisors = (1+1) * (1+1) = 2 * 2 = 4 i.e. 1 2 5 10
+
+Problem Statement : We will be given a number n, count the no of divisors of n!.
+
+Solution : Find prime factorization of n! and use the above formula, BUT we will use a different technique to find prime factorization
+of n!.
+
+e.g : prime factorization of 4!
+
+We know, 
+            4! = 4 x 3 x 2 x 1 = 24
+
+The prime factors of 24 lies in the range [1,4] i.e. 2 ,3
+
+Now for each prime factor we need to find its greates power which can divide 24.
+
+e.g: For p = 2,
+                4 x 3 x 2 x 1 / 2 ^ x, x = greatest power of 2 which divides 24
+
+It can be found  through legendre's formula ( It provides greatest power of x which divides n! ).
+
+legendre formula = [n/p] + [n/p^2] + [n/p^3] +...+ [n/p^k] , where p^k <= n, [] - floor
+
+So for p = 2 and n = 4,
+
+                        x = [4/2] + [4/4] = 2 + 1 = 3
+
+Therefore, x = 3 is the greatest exponent of 2 which divides 4! i.e. 24.
+
+To solve the given problem keep these things in mind :-
+
+(1) Find prime numbers in the range [1,n] because these much prime numbers are sufficient to write prime factorization of n!.
+(2) Find the greatest exponent of each prime number using Legendre's Formula.

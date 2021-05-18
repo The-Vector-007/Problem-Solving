@@ -1,0 +1,58 @@
+int findByPathCompression( int v, int* par ){ //find by path compression
+    if( par[v] == v ){
+        return v;
+    }
+    return par[v] = findByPathCompression(par[v], par); // updating topmost parent of all vertices in the path
+}
+
+void Kruskal_optimized(Edge* input, int n, int e){
+    sort(input, input+e, f);
+
+    int par[n], ran[n];
+    for (int i = 0; i<n; i++)
+        par[i] = i, ran[i] = 1;
+
+    Edge output[n-1];
+    
+    int count = 0, inputIndex = 0;
+    while( count != n-1 ){
+        Edge currentEdge = input[inputIndex];
+
+        int sourceParent = findByPathCompression(currentEdge.source, par);
+        int destParent = findByPathCompression(currentEdge.destination, par);
+
+        if( sourceParent != destParent ){
+            output[count] = currentEdge;
+            count++;
+
+            //union by rank
+            //If same rank make any one parent and increase its rank by 1
+            //If diff rank make the one with higher rank parent of lower rank
+
+            if( ran[sourceParent] < ran[destParent] ){
+                par[sourceParent] = destParent;
+            }
+            else if( ran[sourceParent] > ran[destParent] ){
+                par[destParent] = sourceParent;
+            }
+            else{
+                par[sourceParent] = destParent;
+                ran[destParent]++;
+            }
+        }
+
+        inputIndex++;
+    }
+
+    cout << "Resulting output is : " << endl;
+
+    for( int i = 0; i < n-1; i++ ){
+        if( output[i].source < output[i].destination ){
+            cout << output[i].source <<" "<< output[i].destination <<" "<< output[i].weight << endl;
+        }
+        else{
+            cout << output[i].destination <<" "<< output[i].source <<" "<< output[i].weight << endl;
+        }
+    }
+
+}

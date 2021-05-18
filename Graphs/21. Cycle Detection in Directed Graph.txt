@@ -1,0 +1,35 @@
+bool dfs(int sv, bool* visited, bool* recStack, vector<int> adj[]){
+    if( !visited[sv] ){
+        visited[sv] = true;
+        recStack[sv] = true;
+        
+        for( int adjacent : adj[sv] ){
+            if( !visited[adjacent] && dfs(adjacent, visited, recStack, adj) ){
+                return true;
+            }
+            else if( recStack[adjacent] ){
+                return true;
+            }
+        }
+    }
+    
+    recStack[sv] = false;
+    return false;
+    
+}
+
+bool isCyclic(int V, vector<int> adj[]) {
+    bool visited[V] = {};
+    bool recStack[V] = {};
+    for( int i = 0; i < V; i++ ){
+        if( dfs(i,visited,recStack,adj) )
+            return true;
+    }
+    return false;    
+}
+
+About the Directed Graph :-
+
+(1) Can have self loop
+(2) Can have forward edge from v1 to v2 and backward edge from v2 to v1.
+(3) Simple cyle 0 -> 1 -> 2 -> 0.

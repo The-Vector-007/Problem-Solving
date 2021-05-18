@@ -1,0 +1,41 @@
+void printBFS( int** adjMatrix, int n, int sv){
+    queue<int> pendingVertices;
+
+    bool* visited = new bool[n];
+    for( int i = 0; i < n; i++ ){
+        visited[i] = false;
+    }
+
+    pendingVertices.push(sv);
+    visited[sv] = true;
+
+    while( !pendingVertices.empty() ){
+
+        int currentVertex = pendingVertices.front();
+        pendingVertices.pop();
+        cout << currentVertex << " ";
+
+        for( int i = 0; i < n; i++ ){
+            if( i == currentVertex ){
+                continue;
+            }
+            if( adjMatrix[currentVertex][i] == 1 && !visited[i] ){ // only add those in queue which have an edge but not yet visited
+                pendingVertices.push(i);
+                visited[i] = true;
+            }
+        }
+    }
+}
+
+NOTE :-
+
+                        2
+                      /   \
+                    1       0
+If this is the graph and you perform BFS on it with starting vertex = 2, then the output will be 2 0 1.
+Because for each element loop runs from 0 to n-1.( first come first push in queue )
+
+
+We are printing all those vertices whose distance from starting vertex is equal.
+
+We are completely traversing a level or breadth then printing the next one, so the name Breadth First Search.

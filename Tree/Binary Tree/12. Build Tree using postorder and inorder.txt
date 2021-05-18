@@ -1,0 +1,35 @@
+BinaryTreeNode<int>* buildTreePos( int pos[], int in[], int posStart, int posEnd, int inStart, int inEnd ){
+    if( posStart > posEnd ){
+        return NULL;
+    }
+
+    int rootData = pos[ posEnd ];
+    int rootIndex = -1;
+
+    for( int i = inStart; i <= inEnd; i++ ){
+        if( in[i] == rootData ){
+            rootIndex = i;
+            break;
+        }
+    }
+
+    int l_i_s = inStart;
+    int l_i_e = rootIndex - 1;
+    int l_p_s = posStart;
+    int l_p_e = l_p_s + ( l_i_e - l_i_s );
+
+    int r_i_s = rootIndex + 1;
+    int r_i_e = inEnd;
+    int r_p_e = posEnd - 1;
+    int r_p_s = r_p_e - (r_i_e - r_i_s);
+
+    BinaryTreeNode<int>* root = new BinaryTreeNode<int>(rootData);
+    root->left = buildTreePos(pos, in, l_p_s, l_p_e, l_i_s, l_i_e);
+    root->right = buildTreePos(pos, in, r_p_s, r_p_e, r_i_s, r_i_e);
+
+    return root;
+}
+
+BinaryTreeNode<int> * build_using_in_and_pos( int * pos, int * in, int size ){
+    return buildTreePos(pos, in, 0, size - 1, 0, size - 1);
+}

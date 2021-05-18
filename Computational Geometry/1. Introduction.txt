@@ -1,0 +1,44 @@
+-A point and vector can be used as synonym in Computational Geometry.
+
+    A vector AB can be represented as :-
+
+    A = (x1,y1) <-- w.r.t origin            B = (x2,y2) <-- w.r.t origin
+
+            AB = (x2-x1, y2-y1) <-- A vector is represented by a single point in Computational Geometry.  
+            BA = (x1-x2, y1-y2)
+
+    E.G :-
+
+    A point (or vector) = (1,1)
+    B point (or vector) = (4,4)
+
+    AB vector = (4-1, 4-1) = (3,3)
+    BA vector = (1-4, 1-4) = (-3,-3)
+
+-Addition of two vectors :-
+
+    AB = (x1,y1)    PQ = (x2,y2)
+
+    AB + PQ = (x1+x2, y1+y2) <-- Add corresponding values
+
+-Dot Product :-
+
+    AB = (x1,x2)    PQ = (y1,y2)
+
+    AB . PQ = (x1 * y1) + (x2 * y2) 
+
+-Cross Product :-
+
+    AB = (x1,x2)    PQ = (y1,y2)
+
+    AB x PQ = (x1 * y2) - (x2 * y1)
+
+-Application of cross product :-
+
+    A x B = |A|.|B|.Sinθ
+
+    Area of Parallelogram formed by two vector A and B is given by their cross product.
+
+    Area of Parallelogram = A x B = |A x B| = | x1 * y2 - x2 * y1 | <-- Only magnitude
+
+    Area of Triangle = (A x B)/2 = |A x B|/2 = | x1 * y2 - x2 * y1 |/2

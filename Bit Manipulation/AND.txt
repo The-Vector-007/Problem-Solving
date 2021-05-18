@@ -1,0 +1,3 @@
+Let ans = a & b. Then,
+
+			ans <= min(a,b).

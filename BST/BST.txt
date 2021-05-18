@@ -1,0 +1,413 @@
+#include<bits/stdc++.h>
+using namespace std;
+
+struct node{    
+    int data;
+    int count;
+    node* left;
+    node* right;
+};
+
+node* getNewNode( int data ){
+    node* newNode = new node();
+    newNode->data = data;
+    newNode->count = 1;
+    newNode->left = newNode->right = NULL;
+    return newNode;
+}
+
+void PreorderRecursive( node* root ){
+
+    if( root == NULL){
+        return;
+    }
+
+    cout<<root->data<<" "<<root->count<<endl;
+    PreorderRecursive(root->left);
+    PreorderRecursive(root->right);
+}
+
+void InorderRecursive( node* root ){
+
+    if( root == NULL){
+        return;
+    }
+
+    InorderRecursive(root->left);
+    cout<<root->data<<" "<<root->count<<endl;
+    InorderRecursive(root->right);
+}
+
+void PostorderRecursive( node* root ){
+
+    if( root == NULL){
+        return;
+    }
+
+    PostorderRecursive(root->left);
+    PostorderRecursive(root->right);
+    cout<<root->data<<" "<<root->count<<endl;
+}
+
+void PreorderIterative( node* root ){
+    if( root == NULL ){
+        return;
+    }
+
+    stack<node*> s;
+    s.push(root);
+    
+    node* curr = root;
+
+    while(!s.empty()){
+        if( curr != NULL ){
+            cout<<curr->data<<" "<<curr->count<<endl;
+
+            if( curr->right != NULL ){
+                s.push( curr->right );
+            }
+
+            curr = curr->left;
+        }
+
+        else{
+            curr = s.top();
+            s.pop();
+        }
+    }
+}
+
+void InorderIterative( node* root ){
+    if( root == NULL ){
+        return;
+    }
+
+    stack<node*> s;
+
+    node* curr = root;
+
+    while( !s.empty() || curr != NULL ){
+        if( curr != NULL ){
+            s.push(curr);
+            curr = curr->left;
+        }
+        else{
+            curr = s.top();
+            s.pop();
+            cout<<curr->data<<" "<<curr->count<<endl;
+
+            curr = curr->right;
+        }
+    }
+}
+
+void PostorderIterative( node* root ){
+    if( root == NULL ){
+        return;
+    }
+
+    stack<node*> s;
+    s.push(root);
+
+    stack< pair<int,int> > out;
+
+    while(!s.empty()){
+        node* curr = s.top();
+        s.pop();
+
+        out.push( make_pair( curr->data, curr->count ) );
+
+        if( curr-> left != NULL ){
+            s.push(curr->left);
+        }
+
+        if( curr-> right != NULL ){
+            s.push(curr->right);
+        }
+    }
+
+    while( !out.empty() ){
+        cout<<out.top().first<<" "<<out.top().second<<endl;
+        out.pop();
+    }
+}
+
+void LevelOrder( node* root ){
+    if( root == NULL ){
+        return;
+    }
+
+    queue<node*> q;
+
+    node* curr;
+
+    q.push( root );
+    q.push( NULL );
+
+    while( q.size() > 1 ){
+        curr = q.front();
+        q.pop();
+
+        if( curr == NULL ){
+            q.push( NULL );
+            cout<<"\n";
+        }
+        else{
+            if( curr->left != NULL ){
+                q.push( curr->left );
+            }
+
+            if( curr->right != NULL ){
+                q.push( curr->right );
+            }
+
+            cout<<curr->data<<"("<<curr->count<<")"<<"\t";
+        }
+    }
+}
+
+int Depth( node* root ){
+    if( root == NULL ){
+        return -1;
+    }
+
+    else{
+        int l = Depth( root->left );
+        int r = Depth( root->right );
+
+        if( l > r ){ return l+1; }
+        else{ return r+1; }
+    }
+}
+
+void mirror( node* root ){
+    if( root == NULL ){
+        return;
+    }
+    else{
+        node* temp;
+
+        mirror( root->left );
+        mirror( root->right );
+
+        temp = root->left;
+        root->left = root->right;
+        root->right = temp;
+    }
+}
+
+void printLeafNodes(node* root) // left to right
+{ 
+     
+    if (root == NULL) 
+        return; 
+      
+         
+    if ( root->left == NULL && root->right == NULL ) 
+    { 
+        cout << root->data<<"("<<root->count<<")"<< "\t";  
+        return; 
+    } 
+  
+    if (root->left != NULL) {
+        printLeafNodes(root->left);
+    }
+          
+    if (root->right != NULL){
+        printLeafNodes(root->right);
+    } 
+        
+}
+
+node* minValue( node* root ){
+    while( root->left != NULL ){
+        root = root->left;
+    }
+    return root;
+}
+
+/*
+    To insert a node you have to pass the root node pointer. For that you have three methods:-
+    (1) you can make the return type of your function node* so that each time you insert the value will be returned
+    and you can store in the root pointer in the main function.
+    (2) instead of changing the return type you can pass a pointer to pointer for the root node and can make changes
+    which will be reflected in the pointer inside main function.
+    (3)This is a more convenient way, what you can do is make the root pointer a global variable.
+*/
+
+bool Search( node* root, int key ){
+    if( root == NULL ){
+        return false;
+    }
+    else if( key == root->data ){
+        return true;
+    }
+    else if( key < root->data ){
+        return Search( root->left, key );
+    }
+    else {
+        return Search( root->right, key );
+    }
+}
+
+node* Insert( node* root, int data ){ // going with the first method
+    if( root == NULL ){
+        root = getNewNode(data);
+        return root;
+    }
+
+    if( data == root->data ){
+        (root->count)++;
+        return root;
+    }
+
+    if( data < root->data ){
+        root->left = Insert( root->left, data );
+    }
+    else{
+        root->right = Insert( root->right, data );
+    }
+
+    return root;
+}
+
+node* Delete( node* root, int data ){
+    if( root == NULL ){
+        return root;
+    }
+
+    else if( data < root->data ){
+        root->left = Delete( root->left, data );
+    }
+
+    else if( data > root->data ){
+        root->right = Delete( root->right, data );
+    }
+
+    else{
+        if( root->count > 1 ){
+            (root->count)--;
+        }
+
+        else if( root->left == NULL && root->right == NULL ){
+            delete root;
+            root = NULL;
+        }
+
+        else if( root->left == NULL ){
+            node* temp = root;
+            root = root->right;
+            delete temp;
+        }
+
+        else if( root->right == NULL ){
+            node* temp = root;
+            root = root->left;
+            delete temp;
+        }
+
+        else{
+            node* temp = minValue( root->right );
+            root->data = temp->data;
+            root->right = Delete( root->right, temp->data );
+        }
+    }
+    return root;
+}
+
+int main(){
+    node* root = NULL;
+
+    while(true){
+
+        int choice;
+        cout<<"1. Insert an element\n"
+            <<"2. Search an element\n"
+            <<"3. Delete an element\n"
+            <<"4. Preorder Recursive\n"
+            <<"5. Inorder Recursive\n"
+            <<"6. Postorder Recursive\n"
+            <<"7. Preorder Iterative\n"
+            <<"8. Inorder Iterative\n"
+            <<"9. Postorder Iterative\n"
+            <<"10. Level Order Traversal\n"
+            <<"11. Depth of Tree\n"
+            <<"12. Mirror Image\n"
+            <<"13. Print Leaf Nodes\n"
+            <<"14. Exit\n"
+            <<"Enter your choice: ";
+        cin>>choice;
+        
+        if( choice == 14 ){ break; }
+
+        switch(choice){
+        case 1:{
+            int n;
+            cout<<"\nHow many elements you want to insert: ";
+            cin>>n;
+
+            cout<<"\nEnter the elements:-\n";
+            int element;
+            for( int i = 1; i <= n; i++ ){
+                cin>>element;
+                root = Insert(root,element);
+            }
+            break;
+        }
+
+        case 2:{
+            int key;
+            cout<<"\nEnter the element you want to search: ";
+            cin>>key;
+            if( Search(root,key) ){ cout<<"\nElement Found\n"; }
+            else{ cout<<"\nElement Not Found\n"; }
+            break;
+        }
+
+        case 3:{
+            int data;
+            cout<<"\nEnter the element you want to delete: ";
+            cin>>data;
+            if( Search(root,data) ){
+                root = Delete( root, data );
+                cout<<"\nElement deleted\n";
+            }
+            else{ cout<<"\nElement Not Found\n"; }
+            break;
+        }
+
+        case 4: PreorderRecursive(root); break;
+        case 5: InorderRecursive(root); break;
+        case 6: PostorderRecursive(root); break;
+
+        case 7: PreorderIterative(root); break;
+        case 8: InorderIterative(root); break;
+        case 9: PostorderIterative(root); break;
+
+        case 10: LevelOrder(root); break;
+
+        case 11:{
+            int ans = Depth(root);
+            cout<<"\nDepth of Tree is: "<<ans<<endl;
+        }
+
+        case 12:{
+            cout<<"\nInitital Tree:-\n";
+            LevelOrder(root);
+
+            mirror(root);
+            cout<<"\nMirror Image:-\n";
+            LevelOrder(root);
+            break;
+        }
+
+        case 13: printLeafNodes(root); break;
+
+        default:{
+            cout<<"Invalid Choice"<<endl;
+            break;
+        }
+    }
+
+    }
+}

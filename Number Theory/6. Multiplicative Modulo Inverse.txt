@@ -1,0 +1,89 @@
+For two numbers A,m the Muliplicative modulo inverse of A is B such that,
+
+
+                                    (A.B) % m = 1
+
+E.g Let (A,m) = (5,12) then,
+
+                            5.1 % 12 = 5
+                            5.2 % 12 = 10
+                            5.3 % 12 = 3
+                            5.4 % 12 = 8
+                            5.5 % 12 = 1 <-- Therefore The MMI of 5 is 5.
+
+Range of B = [1,m-1] because,
+
+                            (A.B) % m =( A%m * B%m ) % m
+
+                        If B is MMI of A then acc to above eq. it value will be from [0,m-1] but we can discard 0
+                        as multiplying it with A and then taking modulo will never give us 1.
+
+Now we will find MMI using extended euclid,
+
+                                        (A.B) % m = 1
+                                        A.B ≡ 1 (mod m)
+
+                                        (A.B - 1) =  m.q   {We know that if a ≡ b (mod m) then (a-b) is a multiple of m}   
+
+                                        A.B - m.q = 1
+                                    or           
+                                        A.B + m.Q = 1   say -q = Q
+                        comparing with  A.x + B.y = gcd(A,B)
+
+Conclusions :-
+
+The MMI of A exists only and only if gcd(A,m) = 1 i.e A and m are coprime.
+We can find the Value of B and Q using extended euclid and B will give us the MMI of A.
+
+Code :-
+
+class Triplet{
+    public :
+        int gcd;
+        int x;
+        int y;
+};
+
+Triplet gcdExtendedEuclid(int a, int b){
+    if( b == 0 ){
+        Triplet myAns;
+        myAns.gcd = a;
+        myAns.x = 1;
+        myAns.y = 0;
+        return myAns;
+    }
+
+    Triplet smallAns = gcdExtendedEuclid(b, a%b);
+
+    Triplet myAns;
+    myAns.gcd = smallAns.gcd;
+    myAns.x = smallAns.y;
+    myAns.y = smallAns.x - ((a/b)*smallAns.y);
+
+    return myAns;
+}
+
+int modInverse(int A, int M){
+    Triplet ans = gcdExtendedEuclid(A,M);
+
+    if( ans.gcd == 1 ){
+        return ans.x;
+    }
+
+    cout << "MMI doesn't exist" << endl;
+    return -1;
+}
+
+NOTE :-
+
+Modular inverse of a number is used when we try to find (a/b)%m :-
+
+we cannot write (a/b)%m = ((a%m)/(b%m))%m as b%m can become 0.
+
+So, we can calculate (a/b)%m only when MODULAR INVERSE OF b exists.
+
+modInverse(b,m) will not exist if gcd(b,m) != 1.
+
+If inv is the modular inverse of b then,
+
+                                        (a/b)%m = (a * inv) % m.

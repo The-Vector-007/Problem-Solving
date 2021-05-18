@@ -1,0 +1,28 @@
+bool nodeExists( BinaryTreeNode<int>* root, int key ){
+    if( root == NULL ){
+        return false;
+    }
+
+    queue<BinaryTreeNode<int>*> pendingNodes;
+    pendingNodes.push(root);
+
+    while(!pendingNodes.empty()){
+        BinaryTreeNode<int>* front = pendingNodes.front();
+        pendingNodes.pop();
+
+        if( front -> data == key ){
+            return true;
+        }
+
+        if( front->left != NULL ){
+            pendingNodes.push(front->left);
+        }
+
+        if( front->right != NULL ){
+            pendingNodes.push(front->right);
+        }
+
+    }
+
+    return false;
+}

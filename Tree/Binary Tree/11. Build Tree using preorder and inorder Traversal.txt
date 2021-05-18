@@ -1,0 +1,37 @@
+BinaryTreeNode<int>* buildTree( int pre[], int in[], int preStart, int preEnd, int inStart, int inEnd ){
+    if( preStart > preEnd ){
+        return NULL;
+    }
+
+    int rootData = pre[preStart];
+    int rootIndex = -1;
+
+    for( int i = inStart; i <= inEnd; i++ ){
+        if( in[i] == rootData ){
+            rootIndex = i;
+            break;
+        }
+    }
+
+    int l_i_s = inStart;
+    int l_i_e = rootIndex - 1;
+    int l_p_s = preStart + 1;
+    int l_p_e = l_p_s + (l_i_e - l_i_s);
+
+
+    int r_p_s = l_p_e + 1;
+    int r_p_e = preEnd;
+    int r_i_s = rootIndex + 1;
+    int r_i_e = inEnd;
+
+    BinaryTreeNode<int>* root = new BinaryTreeNode<int>(rootData);
+    root->left = buildTree(pre, in, l_p_s, l_p_e, l_i_s, l_i_e);
+    root->right = buildTree( pre, in, r_p_s, r_p_e, r_i_s, r_i_e );
+    
+    return root;
+
+}
+
+BinaryTreeNode<int> * build_using_in_and_pre( int * pre, int * in, int size ){
+    return buildTree(pre, in, 0, size - 1, 0, size - 1);
+}

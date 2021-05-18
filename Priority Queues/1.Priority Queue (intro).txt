@@ -1,0 +1,12 @@
+Priority Queues can be best implemented with a Balanced BST.
+
+The Time Complexity for the basic operations like Insert, Delete & Access element becomes O(logn).
+
+But we have to keep the tree balanced which will cost some extra time.
+
+So, a new data structure will be used to implement priority Queues that is a Heap!
+
+Priority Queues are of two types :-
+
+(1) Min Heap Priority Queue - element having minimum priority is important.
+(2) Max Heap Priority Queue - element having maximum priority is important.

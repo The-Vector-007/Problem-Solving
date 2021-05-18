@@ -1,0 +1,79 @@
+Time Complexity :The idea is to represent the efficiency as a function
+whose parameter is the size of the input.
+
+Recursion :-
+
+The time complexity of a recursive function depends on the number of times
+the function is called and the time complexity of a single call.
+The total time complexity is the product of these values.
+
+e.g. 
+void f(int n) {  //total calls = n times
+if (n == 1) return; // complexity of single call = O(1)
+f(n-1);
+}
+
+Time Complexity : O(n.1)= O(n)
+
+Complexity Classes:-
+
+O(1)--> Does not depend on input size i.e. a direct formula 
+calculates the answer.
+
+O(log(n))--> It often halves the input size at each step. i.e 
+n is divided by 2 until it equals 1.
+
+O(sqrt(n))--> sqrt(n) = n/sqrt(n) implies that sqrt(n) lies in 
+middle of the input.
+
+O(n)--> It is often the best possible time complexity, because it
+is necessary to access each input at least once.
+
+O(nlog(n))--> It indicates that either the algorithm sorts the
+input or the algorithm uses a data structure where each operation
+takes O(log(n)) time.
+
+O(n^2)--> often contains two nested loops. It is possible to go
+through all pairs of the input elements in O(n^2) time.
+
+O(n^3)--> often contains three nested loops. It is possible to go
+through all triplets of the input elements in O(n^3) time.
+
+O(2^n)--> This time complexity often indicates that the algorithm
+iterates through all subsets of the input elements.
+n--> elements 2^n--> subsets.
+
+O(n!) --> This time complexity often indicates that the algorithm
+iterates through all permutations of the input elements.
+
+An algorithm is polynomial if its time complexity is at most 
+O(n^k) where k is a constant.
+
+All the above time complexities except O(2^n) and O(n!) are polynomial.
+
+Important : There are many important problems for which no 
+polynomial algorithm is known, i.e., nobody knows how to
+solve them efficiently. NP-hard problems are an important set of
+problems, for which no polynomial algorithm is known.
+
+Estimating Efficiency :-
+
+modern computers : 1 sec --> 10^8 operations.
+
+e.g if n = 10^5 and time limit = 1 sec and ur algo = O(n^2)
+then O( (10^5)^2 ) = O( 10^10 ) = 100 second..too long!
+
+Some estimates :-
+
+Input Size     Reqd. Time Complexity
+n<=10 			O(n!)
+n<=20 			O(2^n)
+n<=500 			O(n^3)
+n<=5000			O(n^2)
+n<=10^6 		O(nlogn) or O(n)
+n is large 		O(1) or O(logn)
+
+e.g : Maximum subarray sum problem can be solved in O(n^3), O(n^2)
+& O(n).
+
+

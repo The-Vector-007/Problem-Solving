@@ -1,0 +1,15 @@
+class Node{
+    public:
+        int data;
+        Node* next;
+
+    Node( int data ){
+        this->data = data;
+        next = NULL;
+    }
+};
+
+int main(){
+	Node n1(1); // creating node statically
+	Node* n2 = new Node(2); // creating node dynamically
+}

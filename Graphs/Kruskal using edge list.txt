@@ -1,0 +1,82 @@
+#include<bits/stdc++.h>
+using namespace std;
+
+class Edge{
+    public:
+        int sourceVertex;
+        int destVertex;
+        int weight;
+};
+
+bool compare( Edge a, Edge b ){
+    return a.weight < b.weight;
+}
+
+int findParent( int vertex, int* parent ){
+    if( parent[vertex] == vertex ){
+        return vertex;
+    }
+    return findParent( parent[vertex], parent );
+}
+
+void KruskalMST( Edge* input, int V, int E ){
+
+    sort(input, input + E, compare);
+
+    Edge* output = new Edge[V - 1];
+
+    int * parent = new int[V];
+
+    for( int i = 0; i < V; i++ ){
+        parent[i] = i;
+    }
+
+    int count = 0;
+    int i = 0;
+
+    while( count != V - 1 ){
+        Edge currentEdge = input[i];
+
+        int sourceParent = findParent( currentEdge.sourceVertex, parent );
+        int destParent = findParent( currentEdge.destVertex, parent );
+
+        if( sourceParent != destParent ){
+            output[count] = currentEdge;
+            count++;
+            parent[sourceParent] = destParent;
+        }
+        i++;
+    }
+
+    cout<<"Your MST is: "<<endl;
+
+    for( int j = 0; j < V - 1; j++ ){
+        if( output[j].sourceVertex < output[j].destVertex ){
+            cout<<output[j].sourceVertex<<" "<<output[j].destVertex<<" "<<output[j].weight<<endl;
+        }
+        else if( output[j].sourceVertex > output[j].destVertex ){
+            cout<<output[j].destVertex<<" "<<output[j].sourceVertex<<" "<<output[j].weight<<endl;
+        }
+    }
+}
+
+int main(){
+    int V, E;
+    cout<<"Enter no of vertices and Edges"<<endl;
+    cin>>V>>E;
+    Edge* input = new Edge[E];
+
+    cout<<"Enter the source node, destination node & corresponding weight (Ex: 0 1 5)"<<endl;
+
+    int source, destination, weight;
+    for( int i = 0; i < E; i++ ){
+        cin>>source>>destination>>weight;
+
+        input[i].sourceVertex = source;
+        input[i].destVertex = destination;
+        input[i].weight = weight;
+    }
+
+    KruskalMST(input, V, E);
+    return 0;
+}

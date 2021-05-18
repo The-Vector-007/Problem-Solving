@@ -1,0 +1,69 @@
+void printBFS( int** adjMatrix, int n, int sv, bool* visited){
+    queue<int> pendingVertices;
+    pendingVertices.push(sv);
+    visited[sv] = true;
+
+    while( !pendingVertices.empty() ){
+
+        int currentVertex = pendingVertices.front();
+        pendingVertices.pop();
+        cout << currentVertex << " ";
+
+        for( int i = 0; i < n; i++ ){
+            if( i == currentVertex ){
+                continue;
+            }
+            if( adjMatrix[currentVertex][i] == 1 && !visited[i] ){ // only add those in queue which have an edge but not yet visited
+                pendingVertices.push(i);
+                visited[i] = true;
+            }
+        }
+    }
+}
+
+void printDFS( int** adjMatrix, int n, int sv, bool* visited ){
+    cout << sv << " "; // print the vertex
+    visited[sv] = true; // mark it tre
+
+    for( int i = 0; i < n; i++ ){
+        if( i == sv ){ // 0-0 or 1-1 skip them
+            continue;
+        }
+        if( adjMatrix[sv][i] == 1 ){ // check if an edge exists between sv, i
+            if( visited[i] ){   // check if i is already visited or not. If yes then continue
+                continue;
+            }
+            printDFS(adjMatrix, n, i, visited); // else call the func again with starting vertex i
+        }
+    }
+}
+
+void BFS( int** adjMatrix, int n ){
+    bool* visited = new bool[n];
+    for( int i = 0; i < n; i++ ){
+        visited[i] = false;
+    }
+
+    for( int i = 0; i < n; i++ ){
+        if( !visited[i] ){
+            printBFS(adjMatrix,n,i,visited);
+        }
+    }
+
+    delete[] visited;
+}
+
+void DFS( int** adjMatrix, int n ){
+    bool* visited = new bool[n];
+    for( int i = 0; i < n; i++ ){
+        visited[i] = false;
+    }
+
+    for( int i = 0; i < n; i++ ){
+        if( !visited[i] ){
+            printDFS(adjMatrix,n,i,visited);
+        }
+    }
+
+    delete[] visited;
+}

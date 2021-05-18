@@ -1,0 +1,17 @@
+void printElementsInRange( BinaryTreeNode<int>* root, int l, int r ){
+    if( root == NULL ){
+        return;
+    }
+
+    if( l < root->data ){
+        printElementsInRange(root->left,l,r);
+    }
+
+    if( root->data >= l && root->data <= r ){
+        cout << root->data << " ";
+    }
+
+    if( r > root->data ){
+        printElementsInRange(root->right,l,r);
+    }
+}

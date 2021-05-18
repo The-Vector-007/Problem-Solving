@@ -1,0 +1,30 @@
+void DFS_to_return_connected_components(int** adjMatrix, int n, int sv, bool* visited, vector<int>* v){
+    v->push_back(sv);
+    visited[sv] = true;
+    for( int i = 0; i < n; i++ ){
+        if( i == sv ){
+            continue;
+        }
+        if( adjMatrix[sv][i] == 1 && !visited[i] ){
+            DFS_to_return_connected_components(adjMatrix,n,i,visited,v);
+        }
+    }
+}
+
+vector< vector<int> > * ConnectedComponents(int** adjMatrix, int n ){
+    bool* visited = new bool[n];
+    for( int i = 0; i < n; i++ ){
+        visited[i] = false;
+    }
+
+    vector< vector<int> > * allComponents = new vector< vector<int> >();
+
+    for( int i = 0; i < n; i++ ){
+        if( !visited[i] ){
+            vector<int>component;
+            DFS_to_return_connected_components(adjMatrix, n, i, visited, &component);
+            allComponents->push_back(component);
+        }
+    }
+    return allComponents;
+}

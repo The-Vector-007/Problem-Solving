@@ -1,0 +1,31 @@
+int getBucketIndex( string key ){
+    //hashcode
+    int hashcode = 0;
+
+    int currentCoeff = 1;
+    for( int i = key.length() - 1; i >= 0; i-- ){
+        hashcode = key[i] * currentCoeff;
+        hashcode %= numBuckets;
+        currentCoeff *= 37; // p = 37
+        currentCoeff %= numBuckets;
+    } 
+
+    return hashcode % numBuckets; // compression function
+}
+
+void insert( string key, V value ){
+    int bucketIndex = getBucketIndex(key);
+    MapNode<V>* head = buckets[bucketIndex];
+    while( head != NULL ){
+        if( head->key == key ){
+            head->value = value;
+            return;
+        }
+        head = head->next;
+    }
+    head = buckets[bucketIndex];
+    MapNode<V>* newNode = new MapNode<V>( key, value );
+    newNode->next = head;
+    buckets[bucketIndex] = newNode;
+    count++;
+}

@@ -1,0 +1,29 @@
+vector<int>* getPathDfs(int** adjMatrix, int n, int sv, int ev, bool* visited){
+    if( sv == ev ){
+        vector<int>* output = new vector<int>();
+        output->push_back(sv);
+        return output;
+    }
+
+    visited[sv] = true;
+
+    for( int i = 0; i < n; i++ ){
+        if( i == sv ){
+            continue;
+        } 
+        if( adjMatrix[sv][i] == 1 ){
+            if( visited[i] ){
+                continue;
+            }
+            vector<int>* smallOutput = getPathDfs(adjMatrix,n,i,ev,visited);
+            if( smallOutput != NULL ){
+                smallOutput->push_back(sv);
+                return smallOutput;
+            }
+        }
+    }
+
+    return NULL;
+}
+
+NOTE - The returned path will be reversed i.e. from ending vertex to starting vertex.

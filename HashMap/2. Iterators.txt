@@ -1,0 +1,34 @@
+(1)
+
+Iterators are present in :-
+(1) Vector
+(2) List
+(3) Map
+(4) Unordered Map
+(5) Set // implemented using BST
+(6) Unordered Set // implemented using HashTable
+
+(2)
+Syntax :-
+
+class_name <T> ::iterator iterator_name;
+
+e.g: vector<int>::iterator it;
+
+(3)
+begin() and end() :-
+
+unordered_map<int,int> mp;
+unordered_map<int,int>::iterator it = mp.begin(); -- will point to the first element ( can be any )
+
+it++ -- will point to next element location -- elements need not be contiguous
+
+mp.end() -- points to next to last element.
+
+(4)
+
+it = mp.find( key ) -- will return the iterator to the corresponding key else mp.end().
+
+mp.erase(it) -- will erase the element at given location // no multiple deletion
+mp.erase(it, it + 3) -- will delete it, it+1, it+2 // range deletion [ start, end ).
+

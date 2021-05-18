@@ -1,0 +1,42 @@
+File name : 1.cpp
+
+template <typename T, typename V>
+
+class Pair{
+    T x;
+    V y;
+
+    public :
+
+        T getX(){
+            return x;
+        }
+
+        
+        V getY(){
+            return y;
+        }
+
+        void setX( T x ){
+            this->x = x;
+        }
+
+        void setY( V y ){
+            this->y = y;
+        }
+
+};
+
+File name : 2.cpp
+
+#include<bits/stdc++.h>
+#include "1.cpp"
+using namespace std;
+
+int main(){
+    Pair<int,char> obj;
+    obj.setX(5);
+    obj.setY('a');
+
+    cout << obj.getX() << " " << obj.getY() << endl;
+}

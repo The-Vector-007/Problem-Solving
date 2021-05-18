@@ -1,0 +1,20 @@
+There are two methods for collision handling :-
+
+(1) Closed Hashing (Separate chaining)
+(2) Open Addressing 
+
+(1) Closed Hashing or separate chaining => In this method we will have a linked list for each index in our array, so that when two 
+different keys come to the same index through the hash function we can store them in the linked list.
+
+(2) Open Addressing => In this method when a collision occurs,  we try to fing a alternative so that the second key can be send to some
+other index.
+
+                                        (h base i)(a) = hf(a) + f(i)
+                                        new hash value = original hash value + alternative
+
+There are multiple techniques used, some are :-
+
+(1) Linear probing => f(i) = i
+(2) Quadratic probing => f(i) = i^2
+(3) Double hashing => f(i) = i * h'(a)  ( h'(a) -- new hash function )
+

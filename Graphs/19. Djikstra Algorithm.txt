@@ -1,0 +1,55 @@
+int minDistanceVertex(int* distance, int n, bool* visited ){
+    int minDistanceVertexIndex = -1;
+    int minDistance = INT_MAX;
+    for( int i = 0; i < n; i++ ){
+        if( !visited[i] && distance[i] < minDistance ){
+            minDistance = distance[i];
+            minDistanceVertexIndex = i;
+        }
+    }
+    return minDistanceVertexIndex;
+}
+
+void Djikstra(int** adjMatrix, int n, int source){
+    bool visited[n] = {};
+
+    int distance[n] = {};
+    for(int i = 0; i < n; i++)
+        distance[i] = INT_MAX;
+    distance[source] = 0;
+
+    for( int v = 0; v < n; v++ ){
+        int minIndex = minDistanceVertex(distance, n, visited);
+
+        visited[minIndex] = true;
+
+        for( int i = 0; i < n; i++ ){
+
+            if( i == minIndex )
+                continue;
+
+            if( !visited[i] && adjMatrix[minIndex][i] > 0 && distance[minIndex] + adjMatrix[minIndex][i] < distance[i]  ){
+                distance[i] = distance[minIndex] + adjMatrix[minIndex][i];
+            }
+        }
+    }
+
+    cout << "Minimum Distance from " << source << " vertex to all vertices are :-\n";
+    for( int i = 0; i < n; i++ ){
+        cout << i << " : " << distance[i] << endl;
+    }
+}
+
+Algorithm :-
+
+(1) Pick the node which is UNVISITED and has MINIMUM DISTANCE.
+(2) Visit all its unvisited neighbours or unvisited adjacent nodes and update their distance if distance[currentNode] + adjMatrix[currentNode][nextNode]
+ is less than the distance[nextNode]. 
+(3) Once all nodes are visited (till n-1 nodes) the distance array will give you the shortest distance of all nodes from source node.
+
+Time Complexity :-
+
+The time complexity of current code comes out to be O( n^2 ) or O( V^2 ).
+
+But it can be improved if we used priority queue for figuring out the minimum value and adjacency list instead of adjacency matrix
+for visiting the neighbours. Then the time complexity would become O( (E + V) * logV ).

@@ -1,0 +1,6 @@
+The Time Complexity of both algorithms is O( V + E ).
+
+V = no of vertices of graph
+E = no of edges of graph
+
+In worst case E can be V^2 ( In case of a complete graph ).
