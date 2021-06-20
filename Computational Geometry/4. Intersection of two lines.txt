@@ -1,0 +1,126 @@
+Line 1 : AB
+Line 2 : CD
+
+We have to find the intersection point of these two lines.
+
+Let A = (x1,y1)   &    B = (x2,y2)
+
+Then equation of line will be :     A.x + B.y = C
+
+We know that,
+                (y-y1) = (y2-y1)/(x2-x1) . (x-x1)
+
+                (y-y1) . (x2-x1) = (y2-y1) . (x-x1)
+
+                y.(x2-x1) - y1.(x2-x1) = (y2-y1).x - x1.(y2-y1)
+
+                (y2-y1).x + (x1-x2).y = x1.y2 - x1.y1 - y1.x2 + y1.x1
+
+                (y2-y1).x + (x1-x2).y = x1.y2 - x2.y1
+
+                    A          B               C
+
+                A = (y2-y1)     B = (x1-x2)     C = (x1.y2 - x2.y1) or A.x1 + B.y1
+
+Similarly we can find for the second line.
+
+Now,
+
+Line 1 : A1 . x + B1 . y = C1
+Line 2 : A2 . x + B2 . y = C2
+
+Finding x :-
+
+multiply 1 by B2 and 2 by B1,
+
+     A1.B2.x + B1.B2.y = C1.B2
+  -  A2.B1.x + B2.B1.y = C2.B1
+  ------------------------------
+     (A1.B2 - A2.B1) + 0 = C1.B2 - C2.B1
+
+
+     Therefore,
+                        x = (C1.B2 - C2.B1)/(A1.B2 - A2.B1) <-- this is the determinant | A1 B1 |
+                                                                                        | A2 B2 |
+
+So, if determinant is zero then both the lines are parallel.
+
+If the determinant has non zero value then find x using above formula  and find y using below formula which is found using above method ,
+
+multiply line 1 by A2 and 2 by A1,
+
+                        y = (C2.A1 - C1.A2)/(A1.B2 - A2.B1) <-- determinant
+
+NOTE FOR LINE SEGMENT :-
+
+This gives the point of intersection of two lines, but if we are given line segments instead of lines, we have to also recheck that the point so computed actually lies on both the line segments.
+If the line segment is specified by points (x1, y1) and (x2, y2), then to check if (x, y) is on the segment we have to just check that
+
+(1) min (x1, x2) <= x <= max (x1, x2)
+(2) min (y1, y2) <= y <= max (y1, y2)
+
+Code :-
+
+#define pdd pair<double, double>
+
+pdd lineLineIntersection(pdd A, pdd B, pdd C, pdd D)
+{
+    // Line AB represented as a1x + b1y = c1
+    double a1 = B.second - A.second;
+    double b1 = A.first - B.first;
+    double c1 = a1*(A.first) + b1*(A.second);
+  
+    // Line CD represented as a2x + b2y = c2
+    double a2 = D.second - C.second;
+    double b2 = C.first - D.first;
+    double c2 = a2*(C.first)+ b2*(C.second);
+  
+    double determinant = a1*b2 - a2*b1;
+  
+    if (determinant == 0)
+    {
+        // The lines are parallel. This is simplified
+        // by returning a pair of FLT_MAX
+        return make_pair(FLT_MAX, FLT_MAX);
+    }
+    else
+    {
+        double x = (b2*c1 - b1*c2)/determinant;
+        double y = (a1*c2 - a2*c1)/determinant;
+        return make_pair(x, y);
+    }
+}
+
+void displayPoint(pdd P)
+{
+    cout << "(" << P.first << ", " << P.second << ")" << endl;
+}
+
+int main(){
+    pdd A = make_pair(1, 1);
+    pdd B = make_pair(4, 4);
+    pdd C = make_pair(1, 8);
+    pdd D = make_pair(2, 4);
+  
+    pdd intersection = lineLineIntersection(A, B, C, D);
+  
+    if (intersection.first == FLT_MAX && intersection.second==FLT_MAX)
+    {
+        cout << "The given lines AB and CD are parallel.\n";
+    }
+  
+    else
+    {
+        // NOTE: Further check can be applied in case
+        // of line segments. Here, we have considered AB
+        // and CD as lines
+        cout << "The intersection of the given lines AB "
+                "and CD is: ";
+        displayPoint(intersection);
+    }
+  
+}
+
+
+
+ 
