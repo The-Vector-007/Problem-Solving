@@ -1,0 +1,2 @@
+1. Sum of first M odd numbers = M^2 (1,3,5,7,....M) ( If in range first a to first b = a^2 - b^2 , a > b ( 1,3,5,7.....b,....a ) )
+2. If MMI of number exists then it is unique to that numbers. (multiple MMI's doesn't exist for a number)

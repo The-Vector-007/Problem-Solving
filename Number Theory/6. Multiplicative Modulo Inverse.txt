@@ -87,3 +87,5 @@ modInverse(b,m) will not exist if gcd(b,m) != 1.
 If inv is the modular inverse of b then,
 
                                         (a/b)%m = (a * inv) % m.
+
+        

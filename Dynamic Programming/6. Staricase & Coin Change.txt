@@ -1,0 +1,50 @@
+Difference between the two problems :-
+
+Say n = 4, // climb 4 stairs || get a change of coins for 4 rs
+
+Staricase : 1 , 1 , 2 -- one way & 1, 2, 1 -- second way
+Coin : 1, 1, 2 & 1, 2, 1 -- both are same answers
+
+Staircase :-
+
+int countWays(int n) // Same as finding nth fibonacci (can use matrix exponentiation also (log n))
+{
+    int res[n + 1];
+    res[0] = 1;
+    res[1] = 1;
+    res[2] = 2;
+    for (int i = 3; i <= n; i++)
+        res[i] = res[i - 1] + res[i - 2] + res[i - 3];
+ 
+    return res[n];
+}
+
+Time Complexity :  O(n)
+Space Complexity : O(n)
+
+Coin Change:-
+
+//Top Down Approach
+int CoinChange(int n, int * arr, int len, vector<vector<int>>& dp){ 
+    if( n == 0 ){
+        return 1;
+    }
+    if( n < 0 ){
+        return 0;
+    }
+    if( len == 0 ){
+        return 0;
+    }
+
+    if( dp[n][len] != -1 ){
+        return dp[n][len];
+    } 
+
+    int first = CoinChange(n - arr[0], arr, len, dp);
+    int second = CoinChange(n, arr+1, len-1, dp);
+
+    dp[n][len] = first + second;
+
+    return dp[n][len];
+}
+
