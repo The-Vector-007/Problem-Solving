@@ -1,0 +1,82 @@
+1) O(sqrt(n)) Method for a single number :-
+
+vector<int> primeFactors(int n){
+    vector<int>ans;
+
+    // Print the number of 2s that divide n
+    while (n % 2 == 0)
+    {
+        ans.push_back(2);
+        n = n/2;
+    }
+ 
+    // n must be odd at this point. So we can skip
+    // one element (Note i = i +2)
+    for (int i = 3; i <= sqrt(n); i = i + 2)
+    {
+        // While i divides n, print i and divide n
+        while (n % i == 0)
+        {
+            ans.push_back(i);
+            n = n/i;
+        }
+    }
+ 
+    // This condition is to handle the case when n
+    // is a prime number greater than 2
+    if (n > 2)
+        ans.push_back(n);
+
+    return ans;
+}
+
+2) O(log(n)) Time complexity method with O(n) Space complexity (for multiple queries):-
+
+#define MAXN 100001 // check range and change this
+
+// stores smallest prime factor for every number
+int spf[MAXN];
+
+// Calculating SPF (Smallest Prime Factor) for every
+// number till MAXN.
+// Time Complexity : O(nloglogn)
+void sieve()    // IMPORTANT : PRE COMPUTE THIS
+{
+	spf[1] = 1;
+	for (int i=2; i<MAXN; i++)
+
+		// marking smallest prime factor for every
+		// number to be itself.
+		spf[i] = i;
+
+	// separately marking spf for every even
+	// number as 2
+	for (int i=4; i<MAXN; i+=2)
+		spf[i] = 2;
+
+	for (int i=3; i*i<MAXN; i++)
+	{
+		// checking if i is prime
+		if (spf[i] == i)
+		{
+			// marking SPF for all numbers divisible by i
+			for (int j=i*i; j<MAXN; j+=i)
+
+				// marking spf[j] if it is not
+				// previously marked
+				if (spf[j]==j)
+					spf[j] = i;
+		}
+	}
+}
+
+vector<int> getFactorization(int x) // USE THIS AFTER PRECOMPUTATION
+{
+	vector<int> ret;
+	while (x != 1)
+	{
+		ret.push_back(spf[x]);
+		x = x / spf[x];
+	}
+	return ret;
+}
