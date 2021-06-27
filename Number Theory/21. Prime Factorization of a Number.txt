@@ -80,3 +80,20 @@ vector<int> getFactorization(int x) // USE THIS AFTER PRECOMPUTATION
 	}
 	return ret;
 }
+
+//If you want prime factorization in the form : p1 ^ k1 , p2 ^ k2  ( e.g n = 8 then ans = 2 ^ 3 ) .USE MAP
+
+map<int,int> getFactorization(int n) // USE THIS AFTER PRECOMPUTATION
+{
+	map<int,int> ans;
+	while( n > 1 )
+    {
+      int x = spf[x];
+      while(n % x == 0) 
+      {
+        ans[x]++;
+        n /= x;
+      }
+    }
+	return ret;
+}
