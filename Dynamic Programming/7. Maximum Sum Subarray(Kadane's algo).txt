@@ -1,0 +1,13 @@
+//O(n) approach , handles negatives as well
+
+int maxSubarraySum(int arr[], int n){
+    
+    int currSum = arr[0], bestSum = arr[0];
+    
+    for( int i = 1; i < n; i++ ){
+        currSum = max(arr[i], currSum + arr[i]);
+        bestSum = max(bestSum, currSum);
+    }
+    
+    return bestSum;
+}
