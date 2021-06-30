@@ -11,3 +11,25 @@ int maxSubarraySum(int arr[], int n){
     
     return bestSum;
 }
+
+//Number of R's problems
+
+Link : https://www.hackerearth.com/practice/algorithms/dynamic-programming/introduction-to-dynamic-programming-1/practice-problems/algorithm/number-of-rs-1/
+
+int numberOfR(string s){
+    int ans = 0, arr[s.length()];
+
+    for( int i = 0; i < s.length(); i++ ){
+        if( s[i] == 'R' ){
+            arr[i] = -1;
+            ans++;
+        }
+        else{
+            arr[i] = 1;
+        }
+    }
+
+    return ans + maxSubarraySum(arr,s.length()) ;
+}
+
+    
