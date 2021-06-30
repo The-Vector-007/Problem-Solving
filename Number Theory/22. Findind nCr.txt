@@ -4,21 +4,11 @@ const int N = 2e6 + 5;
 
 int f[N], inv[N];
 
-void pre(){ // execute this first
-    f[0] = 1;
-    inv[0] = 1;
-    for (int i = 1;i <= 2e6;i++) 
-    {
-        f[i] = mult(f[i - 1], i);
-        inv[i] = bp(f[i], mod - 2);
-    }
-}
-
 int mult(int a, int b)
 {
   return (1ll * a * b) % mod;
 }
- 
+
 int bp(int a, int n)
 {
   int ans = 1;
@@ -30,7 +20,16 @@ int bp(int a, int n)
   }
   return ans;
 }
- 
+
+void pre(){ // execute this first
+    f[0] = 1;
+    inv[0] = 1;
+    for (int i = 1;i <= N;i++) 
+    {
+        f[i] = mult(f[i - 1], i);
+        inv[i] = bp(f[i], mod - 2);
+    }
+}
  
 int C(int n, int k) // Main function
 {

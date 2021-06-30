@@ -88,12 +88,12 @@ map<int,int> getFactorization(int n) // USE THIS AFTER PRECOMPUTATION
 	map<int,int> ans;
 	while( n > 1 )
     {
-      int x = spf[x];
+      int x = spf[n];
       while(n % x == 0) 
       {
         ans[x]++;
         n /= x;
       }
     }
-	return ret;
+	return ans;
 }

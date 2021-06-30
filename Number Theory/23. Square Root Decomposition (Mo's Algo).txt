@@ -1,0 +1,63 @@
+Square Root Decomposition or Mo's Algorithm :-
+
+Uses:-
+
+(1) To answer range queries in O( q * sqrt(n) ) Time complexity where q = no of queries & n = size of array.
+(2) The queries must be offline i.e. no updation of element should take place.
+(3) If the final answer depends on the order of queries then this algo should not be used.
+
+Imp points :-
+
+
+(1) We will find the answer of ith query using the answer of (i-1)th query.
+
+(2) We will maintain two pointers start & end which will tell the current range in the array. we will find the answer of intitial 
+    values of start & end using normal method and then for the next query we will either add an element or remove one.
+
+e.g: Current Range => (start,end)       new query = [l,r]
+
+If ( start < l ) => remove( arr[start] ); start++;
+If ( start > l ) => add( arr[start] ); start--;
+
+If ( end < l ) => add( arr[end] ); end++;
+If ( end > l ) => remove( arr[end] ); end--; 
+
+
+(3) But doing this will still not improve the time complexity. So we will arrange the queries in such a way that going from one query
+    other takes minimum possible time.For that We will divide our array of size n into sqrt(n) size buckets and sort the queries.
+
+Sorting conditions :-
+
+Q1 = [L1,R1]    Q2 = [L2,R2]
+
+If Block 1 = L1/sqrt(n)     Block 2 = L2/sqrt(n)
+
+if Block 1 < Block 2 then L1 comes before L2
+if Block 1 > Block 2 then L2 comes before L1
+
+But if Block 1 = Block 2 then min(R1,R2) will come before than the other one.
+
+e.g :
+
+n = 12  then sqrt(12) = 3.464 take floor => 3.       So no of blocks = n/sqrt(n) = 12/3 = 4 ( or take ceil)
+                    0   1   2   3   4   5   6   7   8   9   10  11
+                    ---------   ---------   ---------   ----------
+                     0th block  1st block    2nd block   3rd block
+
+            Queries : (3,8)
+                      (2,6)
+                      (3,11)
+                      (5,9)
+
+Final order of queries : (2,6) (3,8) (5,9) (3,11)
+
+L1 = 2 & L2 = 3 belong to different blocks min(L1,L2) will come first so (2,6) will come before (3,8)
+L1 = 3 & L2 = 5 belong to same block so min(R1,R2) will come first so (3,8) will come before (5,9)
+
+To find L belongs to which block use  :  L/sqrt(n)
+
+e.g : 2/3 = 0th block       3/3 = 1st block        7/3 = 2nd block
+
+
+
+
