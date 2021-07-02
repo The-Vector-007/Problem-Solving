@@ -1,0 +1,23 @@
+(1) Top Down Approach :-
+
+int MagicGrid(vector< vector<int> > &mat,vector<vector<int>>&dp ,int si, int sj, int ei, int ej){
+
+    if( si == ei && sj == ej ){
+        return dp[si][sj] = mat[si][sj]  >= 0 ? 1 : abs(mat[si][sj]) + 1;
+    }  
+    
+    if( si > ei || sj > ej ){
+        return INT_MAX;   
+    }
+    
+    if( dp[si][sj]  != -1 ){
+        return dp[si][sj];
+    }
+    
+    int op1 = f(mat,dp,si+1,sj,ei,ej);
+    int op2 = f(mat,dp,si,sj+1,ei,ej);
+    
+    int ans = min(op1,op2);
+    
+    return dp[si][sj] = max(1,ans - mat[si][sj]);
+}
