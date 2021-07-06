@@ -1,0 +1,49 @@
+Approach 1 :-
+
+Time Complexity : O(n^4) (assuming R = C = n)
+
+int maximumSumRectangle(int R, int C, vector<vector<int>>& M) {
+        vector< vector<int> > dp(R,vector<int>(C));
+
+        dp[R-1][C-1] = M[R-1][C-1];
+
+        for( int i = C-2; i >= 0; i-- )
+            dp[R-1][i] = M[R-1][i] + dp[R-1][i+1];
+
+        for( int i = R-2; i >= 0; i-- )
+            dp[i][C-1] = M[i][C-1] + dp[i+1][C-1];
+
+        for( int i = R-2; i >= 0; i-- ){
+            for( int j = C-2; j >= 0; j-- ){
+                dp[i][j] =  M[i][j] + dp[i][j+1] + dp[i+1][j] - dp[i+1][j+1];
+            }
+        }
+
+        int ans = INT_MIN;
+
+        for( int i = 0; i < R; i++ ){
+            for( int j = 0; j < C; j++ ){
+
+                for( int k = R-1; k >= i; k--  ){
+                    for( int l = C-1; l >= j; l-- ){
+                        int sub1 = 0, sub2 = 0, add = 0;
+                        if( l < C-1 )
+                            sub1 = dp[i][l+1];
+                        if( k < R-1 )
+                            sub2 = dp[k+1][j];
+                        if( k < R-1 && l < C-1 )
+                            add = dp[k+1][l+1];    
+
+                        ans = max(ans, dp[i][j] - sub1 - sub2 + add ); 
+                    }
+                }
+
+            }
+        }
+
+        return ans;
+}
+
+Approach 2 :-
+
+Time complexity = O(n^3)
