@@ -1,0 +1,58 @@
+Approach 1 : Recursive + Memoization
+
+int lcsHelper(string text1, string text2, int m, int n, vector<vector<int>>&dp){
+    if( m == 0 || n == 0 ){
+        return 0;
+    }
+    
+    if( dp[m][n] != -1 ){
+        return dp[m][n];
+    }
+    
+    if( text1[m-1] == text2[n-1] ){
+        return dp[m][n] = 1 + lcsHelper(text1,text2,m-1,n-1,dp);
+    }
+    
+    return dp[m][n] = max( lcsHelper(text1,text2,m-1,n,dp), lcsHelper(text1,text2,m,n-1,dp) );
+}
+    
+int lcs(int x, int y, string s1, string s2)
+{
+    int m = s1.length();
+    int n = s2.length();
+    
+    vector<vector<int>>dp(m+1,vector<int>(n+1,-1));
+    
+    return lcsHelper(s1,s2,m,n,dp);
+}
+
+Time Complexity : O(m * n)
+
+Approach 2 : Iterative
+
+int lcs( int x, int y, string s1, string s2 ){
+
+    int t[x+1][y+1];
+
+    for( int i = 0; i < x+1; i++ ){
+        for( int j = 0; j < y+1; j++ ){
+            if( i == 0 || j == 0 )
+                t[i][j] = 0;
+            else{
+                if( s1[i-1] == s2[j-1] ) // 0-based indexing
+                    t[i][j] = 1 + t[i-1][j-1];
+                else
+                    t[i][j] = max( t[i-1][j], t[i][j-1] );
+            }
+        }
+    }
+
+    return t[x][y];
+}
+
+t[i][j] meaning :-
+
+s1 :    a b c d ...... i .........m
+s2 :    a b c d ...... j .........n
+
+if ith char of s1 and jth char of s2 are same find the ans for (i,j) using (i-1,j-1) 
