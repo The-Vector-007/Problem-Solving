@@ -1,0 +1,61 @@
+Approach 1 : Top Down
+
+int editDistanceTopDown(string s, string t, int m, int n, vector<vector<int>>&dp){
+    
+    if( m == 0 ){ //first string empty insert all characters of second string
+        return  n;
+    } 
+
+    if( n == 0 ){ // second string empty remove all characters of first string
+        return  m;
+    }
+
+    if( dp[m][n] != -1 ){
+        return dp[m][n];
+    }
+
+    if( s[m-1] == t[n-1] ){ // if last characters of both string are same do nothing
+       return dp[m][n] = editDistance(s,t,m-1,n-1,dp);
+    }
+
+    int op1 =  editDistance(s,t,m,n-1,dp); // insert
+    int op2 =  editDistance(s,t,m-1,n,dp); // remove
+    int op3 =  editDistance(s,t,m-1,n-1,dp); // replace
+
+    return dp[m][n] =  1 + min(op1,min(op2,op3)); // take minimum + 1
+}
+
+int editD(string s, string t) {
+    int m = s.length(), n = t.length();
+    vector<vector<int>> dp(m+1, vector<int>(n+1,-1));
+    return editDistanceTopDown(s,t,m,n,dp);
+}
+
+
+
+Approach 2 : Bottom up
+
+int editDistanceBottomUp(string s, string t){
+    int m = s.length(), n = t.length();
+    vector<vector<int>>dp(m+1,vector<int>(n+1,0));
+
+    for( int i = 0; i <= m; i++ ){
+        for( int j = 0; j <= n; j++ ){
+
+            if( i == 0 ) 
+                dp[i][j] = j; 
+
+            else if( j == 0 ) 
+                dp[i][j] = i;
+
+            else if( s[i-1] == t[j-1] )
+                dp[i][j] = dp[i-1][j-1];
+            
+            else
+                dp[i][j] = min( dp[i-1][j], min( dp[i][j-1], dp[i-1][j-1] ) ) + 1;
+
+        }
+    }
+
+    return dp[m][n];
+}
