@@ -56,3 +56,47 @@ s1 :    a b c d ...... i .........m
 s2 :    a b c d ...... j .........n
 
 if ith char of s1 and jth char of s2 are same find the ans for (i,j) using (i-1,j-1) 
+
+Printing LCS (Backtracking) :-
+
+void printLcs( int x, int y, string s1, string s2 ){
+
+    int t[x+1][y+1];
+
+    for( int i = 0; i < x+1; i++ ){
+        for( int j = 0; j < y+1; j++ ){
+            if( i == 0 || j == 0 )
+                t[i][j] = 0;
+            else{
+                if( s1[i-1] == s2[j-1] )
+                    t[i][j] = 1 + t[i-1][j-1];
+                else
+                    t[i][j] = max( t[i][j-1], t[i-1][j] );
+            }
+        }
+    }
+
+    // This is called Backtracking!
+    int i = x, j = y;
+    string ans = "";
+
+    while( i > 0 && j > 0 ){
+        if( s1[i-1] == s2[j-1] ){
+            ans.push_back( s1[i-1] );
+            i--;
+            j--;
+        }
+        else{
+            if( t[i][j-1] > t[i-1][j] ){
+                j--;
+            }
+            else{
+                i--;
+            }
+        }
+    }
+
+    reverse( ans.begin(), ans.end() );
+
+    cout<<ans<<endl;
+}
