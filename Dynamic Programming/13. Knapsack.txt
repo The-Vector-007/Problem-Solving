@@ -1,0 +1,66 @@
+Terminology :-
+
+n = Total no of items
+
+w = weight of items ,   W = capacity of knapsack
+
+v = value of items
+
+Constraint : weight of selected items <= W && sum of values of selected items  = maximum possible
+
+Recurrence Relation :-
+
+K( N, W ) =  max( val[n-1] + K( N-1, W - wt[n-1] ) , K ( N-1, W ) )     //put a check if wt[n-1] <= W
+
+
+(1) Recursive + Memoization :-
+
+int k(vector<int> &weight, vector<int> &value, int n, int maxWeight, vector<vector<int>>& dp){
+    if( n == 0 || maxWeight == 0 ){
+        return dp[n][maxWeight] = 0;
+    }
+    
+    if( dp[n][maxWeight] != -1  ){
+        return dp[n][maxWeight];
+    }
+    
+    if( weight[n-1] <= maxWeight ){ 
+        // either take the n-1 th element or not 
+        return dp[n][maxWeight] = max( value[n-1] + k(weight, value, n-1, maxWeight - weight[n-1],dp), k(weight, value, n-1, maxWeight,dp) );
+    }
+    
+    return dp[n][maxWeight] = k(weight, value, n-1, maxWeight,dp);
+}
+
+int knapsack(vector<int> weight, vector<int> value, int n, int maxWeight) 
+{
+    int row = n+1, col = maxWeight + 1;
+	vector< vector<int> > dp(row, vector<int>(col, -1));
+    return k(weight, value, n, maxWeight, dp);
+}
+
+(2) Iterative :-
+
+
+
+int knapsack(vector<int> weight, vector<int> value, int n, int maxWeight) 
+{
+	vector< vector<int> > dp( n+1, vector<int> (maxWeight+1, 0) ); // base case handled here
+    
+    for( int i = 1; i <= n; i++ ){
+        for( int w = 1; w <= maxWeight; w++ ){
+            dp[i][w] = dp[i-1][w];
+            if( weight[i-1] <= w ){
+                dp[i][w] = max( dp[i][w], value[i-1] + dp[i-1][w - weight[i-1]] );
+            }
+        }
+    }
+    
+    return dp[n][maxWeight];
+}
+
+
+
+NOTE :-
+
+This knapsack problem is also called 0 1 knapsack because you either pick the element or you do not pick it.
