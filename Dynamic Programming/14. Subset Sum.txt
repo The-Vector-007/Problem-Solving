@@ -1,0 +1,71 @@
+(1) Iterative Solution :-
+
+bool isSubsetSumIterative( int * val, int n, int sum ){
+    bool dp[n+1][sum+1];
+
+    for( int i = 0; i <= sum; i++ ){
+        dp[0][i] = false;
+    }
+
+    for( int i = 0; i <= n; i++ ){
+        dp[i][0] = true;
+    }
+
+    for( int i = 1; i <= n; i++ ){
+        for( int j = 1; j <= sum; j++ ){
+
+            dp[i][j] = dp[i-1][j];
+
+            if( j >= val[i-1] ){                // for ith index in dp it is i-1th element in val
+                dp[i][j] = dp[i][j] || dp[i-1][ j - val[i-1] ];
+            } 
+        }
+    }
+
+    return dp[n][sum];
+}
+
+(2) Recursive + Memoization :-
+
+int isSubsetSum(int N, int arr[], int sum, vector<vector<int>> &dp)
+{
+    if (N == 0 && sum != 0)
+    {
+        dp[N][sum] = 0;
+    }
+
+    if (sum == 0)
+    {
+        return dp[N][sum] = 1;
+    }
+
+    if (dp[N][sum] != -1)
+    {
+        return dp[N][sum];
+    }
+
+    if (arr[N - 1] <= sum)
+    {
+        int op1 = isSubsetSum(N - 1, arr, sum - arr[N - 1], dp);
+        int op2 = isSubsetSum(N - 1, arr, sum, dp);
+
+        if (op1 == 1 || op2 == 1)
+        {
+            return dp[N][sum] = 1;
+        }
+
+        return dp[N][sum] = 0;
+    }
+
+    return dp[N][sum] = isSubsetSum(N - 1, arr, sum, dp);
+}
+
+int main(){
+    int n = 8;
+    int arr[] = {3, 34, 4, 12, 5, 2, 15, 15};
+    int sum = 30;
+
+    vector<vector<int>> dp(n + 1, vector<int>(sum + 1, -1));
+
+    cout << isSubsetSum(n, arr, sum, dp) << endl;
+}
