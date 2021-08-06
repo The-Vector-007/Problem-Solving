@@ -1,0 +1,28 @@
+int MEX( int arr[], int n ){
+
+    bool isZeroPresent = false;
+    for( int i = 0; i < n; i++ ){
+        if( arr[i] == 0 ){
+            isZeroPresent = true;
+            break;
+        }
+    }
+
+    if( !isZeroPresent ) return 0;
+
+    for( int i = 0; i < n; i++ ){
+        int correctPos = arr[i]-1;
+        while( arr[i] >= 1 && arr[i] <= n && arr[i] != arr[correctPos] ){
+            swap( arr[i], arr[correctPos] );
+            correctPos = arr[i] - 1;
+        }
+    }
+
+    for( int i = 0; i < n; i++ ){
+        if( i+1 != arr[i] ){
+            return i+1;
+        }
+    }
+
+    return n+1;
+}
