@@ -59,3 +59,7 @@ When we decide to go in one direction then we move in that direction unless we c
 direction.
 
 So we are searching in a direction in depth unless we can't Search any further, so the name of this type of search is Depth First Search.
+
+Time Complexity = O(V + E)
+
+Data structure used = Stack.
